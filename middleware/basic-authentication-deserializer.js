@@ -1,6 +1,6 @@
 'use strict';
 
-const User = require('./../models/user');
+const User = require('./../models/user.model');
 
 module.exports = (req, res, next) => {
   const userId = req.session.userId;

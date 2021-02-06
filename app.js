@@ -11,8 +11,8 @@ const sassMiddleware = require('node-sass-middleware');
 const serveFavicon = require('serve-favicon');
 const basicAuthenticationDeserializer = require('./middleware/basic-authentication-deserializer.js');
 const bindUserToViewLocals = require('./middleware/bind-user-to-view-locals.js');
-const baseRouter = require('./routes/index');
-const authenticationRouter = require('./routes/authentication');
+const baseRouter = require('./routes/index.route');
+const authenticationRouter = require('./routes/authentication.route');
 
 const app = express();
 
