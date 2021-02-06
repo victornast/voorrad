@@ -3,17 +3,13 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-  label: {
-    type: Boolean,
-    required: true
-  },
-  category: {
-    type: String
-  },
   userId: {
     type: mongoose.Types.ObjectId,
     ref: 'User'
+  },
+  name: {
+    type: Number
   }
 });
 
-module.exports = mongoose.model('Category', schema);
+module.exports = mongoose.model('Budget', schema);
