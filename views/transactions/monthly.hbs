@@ -1,9 +1,11 @@
 <h1>{{title}}</h1>
 {{#each results}}
 <div>
-<p>{{date}} </p>
-<p>{{amount}} EUR</p>
-<p>{{notes}} </p>
+<p>Date of transaction: {{date}} </p>
+<p>Amount: {{amount}} EUR</p>
+<p>Some notes: {{notes}} </p>
+<p>Category: {{categoryId.name}}</p>
+<p>Source: {{transactionSource}}</p>
 <br>
 </div>
 {{/each}}

@@ -8,7 +8,7 @@ const Transaction = require('./../models/transactions.model');
 router.get('/month', routeGuard, (req, res, next) => {
   // const data = req.body;
   Transaction.find()
-    .populate()
+    .populate('categoryId')
     .then((results) => {
       res.render('transactions/monthly', {
         title: 'Monthly View',
