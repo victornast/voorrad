@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
   date: {
-    type: String
+    type: Date
   },
   amount: {
     type: Number,

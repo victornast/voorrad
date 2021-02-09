@@ -7,12 +7,12 @@ const routeGuard = require('../middleware/route-guard');
 const Category = require('./../models/categories.model');
 const Transaction = require('./../models/transactions.model');
 
-router.get('/', routeGuard, (req, res, next) => {
+router.get('/income', routeGuard, (req, res, next) => {
   let today = new Date().toISOString().substr(0, 10);
   console.log(today);
-  Category.find()
+  Category.find({ label: 'income' })
     .then((categories) => {
-      res.render('transactions/transaction', {
+      res.render('transactions/income', {
         title: 'Add Transaction',
         categories,
         today
@@ -21,11 +21,42 @@ router.get('/', routeGuard, (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.post('/', routeGuard, (req, res, next) => {
+router.post('/income', routeGuard, (req, res, next) => {
   const data = req.body;
   Transaction.create({
     date: data.date,
-    amount: data.amount,
+    amount: Math.abs(data.amount),
+    transactionSource: data.transactionSource,
+    categoryId: data.categoryId,
+    userId: req.user._id,
+    notes: data.notes
+  })
+    .then((transaction) => {
+      console.log(transaction);
+      res.redirect('/budget/month');
+    })
+    .catch((error) => next(error));
+});
+
+router.get('/expense', routeGuard, (req, res, next) => {
+  let today = new Date().toISOString().substr(0, 10);
+  console.log(today);
+  Category.find({ label: 'expense' })
+    .then((categories) => {
+      res.render('transactions/expense', {
+        title: 'Add Transaction',
+        categories,
+        today
+      });
+    })
+    .catch((error) => next(error));
+});
+
+router.post('/expense', routeGuard, (req, res, next) => {
+  const data = req.body;
+  Transaction.create({
+    date: data.date,
+    amount: -Math.abs(data.amount),
     transactionSource: data.transactionSource,
     categoryId: data.categoryId,
     userId: req.user._id,
