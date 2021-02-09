@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
   transactionSource: {
     type: String
   },
-  transactionId: {
+  categoryId: {
     type: mongoose.Types.ObjectId,
     ref: 'Category'
   },
