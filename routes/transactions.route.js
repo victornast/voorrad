@@ -4,8 +4,17 @@ const express = require('express');
 const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
 
+const Category = require('./../models/categories.model');
+
 router.get('/', routeGuard, (req, res, next) => {
-  res.render('transactions/transaction', { title: 'Add Transaction' });
+  Category.find()
+    .then((categories) => {
+      res.render('transactions/transaction', {
+        title: 'Add Transaction',
+        categories
+      });
+    })
+    .catch((error) => next(error));
 });
 
 router.post('/', routeGuard, (req, res, next) => {
