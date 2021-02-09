@@ -10,7 +10,7 @@
     <input type="number" id="amount" name="amount" required >
     
     <label for="category">Category</label>    
-    <select type="category" id="category" name="category">
+    <select type="category" id="category" name="category" required>
         <option value="" selected >Category</option>
         {{#each categories}}
        <option value="{{_id}}" >{{name}}</option>
