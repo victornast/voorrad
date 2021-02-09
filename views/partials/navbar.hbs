@@ -1,5 +1,6 @@
 <nav>
   <a href="/">Home</a>
+  <a href="/transaction">Add a transaction</a>
   {{#if user}}
     <a href="/private">{{user.name}}'s Profile</a>
     <form action="/authentication/sign-out" method="POST">
