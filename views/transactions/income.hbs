@@ -1,4 +1,4 @@
-<h1>{{title}}</h1>
+<h1>Add income</h1>
 
 <form action="" method="POST">
     {{!-- //in case we need to add upload option enctype="multipart/form-data"   --}}
@@ -13,7 +13,7 @@
     <input type="number" id="amount" name="amount" required >
     
     <label for="category">Category</label>    
-    <select type="category" id="category" name="categoryId">
+    <select type="category" id="category" name="categoryId" required>
         <option value="" selected >Category</option>
         {{#each categories}}
        <option value="{{_id}}" >{{name}}</option>

@@ -1,6 +1,9 @@
 <nav>
   <a href="/">Home</a>
-  <a href="/transaction">Add a transaction</a>
+  
+  <a href="/expense">Add expense</a>
+  <a href="/income">Add income</a>
+  <a href="/budget/month">Month</a>
   {{#if user}}
     <a href="/private">{{user.name}}'s Profile</a>
     <form action="/authentication/sign-out" method="POST">
