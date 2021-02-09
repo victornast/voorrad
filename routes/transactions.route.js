@@ -5,20 +5,37 @@ const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
 
 const Category = require('./../models/categories.model');
+const Transaction = require('./../models/transactions.model');
 
 router.get('/', routeGuard, (req, res, next) => {
+  let today = new Date().toISOString().substr(0, 10);
+  console.log(today);
   Category.find()
     .then((categories) => {
       res.render('transactions/transaction', {
         title: 'Add Transaction',
-        categories
+        categories,
+        today
       });
     })
     .catch((error) => next(error));
 });
 
 router.post('/', routeGuard, (req, res, next) => {
-  res.redirect('/budget/month');
+  const data = req.body;
+  Transaction.create({
+    date: data.date,
+    amount: data.amount,
+    transactionSource: data.transactionSource,
+    categoryId: data.categoryId,
+    userId: req.user._id,
+    notes: data.notes
+  })
+    .then((transaction) => {
+      console.log(transaction);
+      res.redirect('/budget/month');
+    })
+    .catch((error) => next(error));
 });
 
 router.get('/:id/edit', routeGuard, (req, res, next) => {
