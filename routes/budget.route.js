@@ -16,4 +16,8 @@ router.get('/categories', routeGuard, (req, res, next) => {
   res.render('transactions/categories', { title: 'Categories' });
 });
 
+router.post('/categories', routeGuard, (req, res, next) => {
+  res.redirect('/budget/categories');
+});
+
 module.exports = router;

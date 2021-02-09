@@ -16,4 +16,8 @@ router.get('/profile', routeGuard, (req, res, next) => {
   res.render('authentication/profile', { title: 'Profile Settings' });
 });
 
+router.post('/profile', routeGuard, (req, res, next) => {
+  res.redirect('/profile');
+});
+
 module.exports = router;
