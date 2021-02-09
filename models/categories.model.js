@@ -4,11 +4,13 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
   label: {
-    type: Boolean,
+    type: String,
+    enum: ['income', 'expense'],
     required: true
   },
-  category: {
-    type: String
+  name: {
+    type: String,
+    required: true
   },
   userId: {
     type: mongoose.Types.ObjectId,
