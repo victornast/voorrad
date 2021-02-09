@@ -4,6 +4,7 @@ const express = require('express');
 const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
 const Transaction = require('./../models/transactions.model');
+const Category = require('./../models/categories.model');
 
 router.get('/month', routeGuard, (req, res, next) => {
   // const data = req.body;
@@ -25,7 +26,20 @@ router.get('/year', routeGuard, (req, res, next) => {
 });
 
 router.get('/categories', routeGuard, (req, res, next) => {
-  res.render('transactions/categories', { title: 'Categories' });
+  // let income = false;
+  Category.find()
+    .then((categories) => {
+      // if (label === 'income') {
+      //   income = true;
+      // }
+      res.render('transactions/categories', {
+        title: 'Categories',
+        categories
+      });
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 router.post('/categories', routeGuard, (req, res, next) => {
