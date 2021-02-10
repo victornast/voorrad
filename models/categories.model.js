@@ -15,6 +15,10 @@ const schema = new mongoose.Schema({
   userId: {
     type: mongoose.Types.ObjectId,
     ref: 'User'
+  },
+  plannedAmount: {
+    type: Number,
+    default: 0
   }
 });
 

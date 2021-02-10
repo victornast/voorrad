@@ -1,9 +1,16 @@
-<form action="/budget/categories" method="POST">
+<form method="POST">
     <label for="new-category">Add category:</label>
-    <input type="text" id="new-category" class="newItem" name="name" required>
+    <input type="text" id="new-category" name="name" placeholder="Category" required>
 
-    <label for="new-label">Was it expense or income?</label>
-    <input type="text" id="new-label" class="newItem" name="label" required>
-      
-    <button type="submit" id="ctgr-button">Add</button>
+    <label for="new-planned-amount">Add category:</label>
+    <input type="number" id="new-planned-amount" name="plannedAmount" placeholder="Planned Amount">
+
+    <label for="new-label">Expense or income?</label>
+    <select type="category" id="new-label" name="label" required>
+        <option value="" selected >Label</option>
+        <option value="income" >Income</option>
+        <option value="expense" >Expense</option>
+    </select>
+
+    <button type="submit">Add</button>
 </form>

@@ -50,7 +50,9 @@ router.post('/add-category', routeGuard, (req, res, next) => {
   const data = req.body;
   Category.create({
     label: data.label,
-    name: data.name
+    name: data.name,
+    userId: req.user._id,
+    plannedAmount: data.plannedAmount
   })
     .then(() => {
       res.redirect('/budget/categories');
