@@ -1,7 +1,7 @@
 <h1>{{title}}</h1>
 {{#each results}}
 <div>
-<p>Date of transaction: {{date}} </p>
+<p>Date of transaction: {{{ date date "DD/MM/YYYY" }}} </p>
 <p>Amount: {{amount}} EUR</p>
 <p>Some notes: {{notes}} </p>
 <p>Category: {{categoryId.name}}</p>
