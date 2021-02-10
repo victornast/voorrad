@@ -42,6 +42,10 @@ router.get('/categories', routeGuard, (req, res, next) => {
     });
 });
 
+router.get('/add-category', routeGuard, (req, res, next) => {
+  res.render('transactions/add-category');
+});
+
 router.post('/categories', routeGuard, (req, res, next) => {
   res.redirect('/budget/categories');
 });
