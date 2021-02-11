@@ -26,7 +26,7 @@ router.get('/year', routeGuard, (req, res, next) => {
 });
 
 router.get('/categories', routeGuard, (req, res, next) => {
-  Category.find()
+  Category.find({ budgetId: req.user.budgetId })
     .then((categories) => {
       res.render('transactions/categories', {
         title: 'Categories',
@@ -41,6 +41,7 @@ router.get('/categories', routeGuard, (req, res, next) => {
 router.get('/add-category', routeGuard, (req, res, next) => {
   res.render('transactions/add-category');
 });
+
 router.post('/add-category', routeGuard, (req, res, next) => {
   const data = req.body;
   Category.create({

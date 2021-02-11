@@ -41,12 +41,10 @@ router.post('/sign-up', (req, res, next) => {
     .then((defaultCategories) => {
       const startingCategories = [];
       for (const category of defaultCategories) {
-        let copyCat = {};
+        let copyCat = { ...category };
         copyCat.budgetId = req.session.budgetId;
-        copyCat.label = category.label;
-        copyCat.name = category.name;
         copyCat.plannedAmount = 0;
-        console.log(copyCat);
+        delete copyCat._id;
         startingCategories.push(copyCat);
       }
       return Category.create(startingCategories);
@@ -79,10 +77,14 @@ router.post('/sign-in', (req, res, next) => {
     .then((result) => {
       if (result) {
         req.session.userId = user._id;
-        res.redirect('/overview');
+        return Budget.findById(user._id);
       } else {
         return Promise.reject(new Error('Wrong password.'));
       }
+    })
+    .then((budget) => {
+      req.session.budgetId = budget._id;
+      res.redirect('/overview');
     })
     .catch((error) => {
       next(error);
