@@ -46,7 +46,7 @@ router.post('/add-category', routeGuard, (req, res, next) => {
   Category.create({
     label: data.label,
     name: data.name,
-    userId: req.user._id,
+    budgetId: req.user.budgetId,
     plannedAmount: data.plannedAmount
   })
     .then(() => {

@@ -4,6 +4,9 @@ const { Router } = require('express');
 
 const bcryptjs = require('bcryptjs');
 const User = require('./../models/user.model');
+const Budget = require('./../models/budget.model');
+const Default = require('./../models/default.model');
+const Category = require('./../models/categories.model');
 
 const router = new Router();
 
@@ -12,7 +15,7 @@ router.get('/sign-up', (req, res, next) => {
 });
 
 router.post('/sign-up', (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, currentBalance, currency } = req.body;
   bcryptjs
     .hash(password, 10)
     .then((hash) => {
@@ -24,6 +27,32 @@ router.post('/sign-up', (req, res, next) => {
     })
     .then((user) => {
       req.session.userId = user._id;
+      return Budget.create({
+        userId: user._id,
+        name: 'Personal Budget',
+        currentBalance,
+        currency
+      });
+    })
+    .then((budget) => {
+      req.session.budgetId = budget._id;
+      return Default.find();
+    })
+    .then((defaultCategories) => {
+      const startingCategories = [];
+      for (const category of defaultCategories) {
+        let copyCat = {};
+        copyCat.budgetId = req.session.budgetId;
+        copyCat.label = category.label;
+        copyCat.name = category.name;
+        copyCat.plannedAmount = 0;
+        console.log(copyCat);
+        startingCategories.push(copyCat);
+      }
+      return Category.create(startingCategories);
+    })
+    .then((categories) => {
+      console.log(categories);
       res.redirect('/overview');
     })
     .catch((error) => {

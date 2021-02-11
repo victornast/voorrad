@@ -8,7 +8,17 @@ const schema = new mongoose.Schema({
     ref: 'User'
   },
   name: {
-    type: Number
+    type: String
+  },
+  currentBalance: {
+    type: Number,
+    default: 0,
+    required: true
+  },
+  currency: {
+    type: String,
+    required: true,
+    enum: ['€', '$']
   }
 });
 

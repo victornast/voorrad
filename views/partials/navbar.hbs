@@ -1,17 +1,15 @@
 <nav>
-  <a href="/">Home</a>
-  
-  <a href="/transaction/expense">Add expense</a>
-  <a href="/transaction/income">Add income</a>
-  <a href="/budget/categories">Categories</a>
-  <a href="/budget/month">Month</a>
   {{#if user}}
-    <a href="/private">{{user.name}}'s Profile</a>
+    <a href="/overview">{{user.name}}'s Profile</a>
+    <a href="/budget/categories">Categories</a>
+    <a href="/transaction/expense">Add expense</a>
+    <a href="/transaction/income">Add income</a>
+    <a href="/budget/month">Month</a>
     <form action="/authentication/sign-out" method="POST">
       <button>Sign Out</button>
     </form>
     {{else}}
-    <a href="/authentication/sign-in">Sign In</a>
     <a href="/authentication/sign-up">Sign Up</a>
+    <a href="/authentication/sign-in">Sign In</a>
   {{/if}}
 </nav>
