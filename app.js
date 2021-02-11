@@ -13,6 +13,7 @@ const basicAuthenticationDeserializer = require('./middleware/basic-authenticati
 const bindUserToViewLocals = require('./middleware/bind-user-to-view-locals.js');
 const hbs = require('hbs');
 const hbsDateHelper = require('helper-date');
+const hbsHelpers = require('handlebars-helpers')();
 
 const baseRouter = require('./routes/index.route');
 const authenticationRouter = require('./routes/authentication.route');
@@ -26,6 +27,7 @@ app.set('view engine', 'hbs');
 
 hbs.registerPartials('views/partials');
 hbs.registerHelper('date', hbsDateHelper);
+hbs.registerHelper(hbsHelpers);
 
 app.use(serveFavicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(

@@ -2,7 +2,7 @@
 <div id="listContainer">
     <ul>
         {{#each categories}}
-            <li>{{name}}</li>
+            <li>{{name}} {{#compare label "===" "income"}}Income{{else}}Expense{{/compare}}</li>
         {{/each}}
     </ul>
 </div>

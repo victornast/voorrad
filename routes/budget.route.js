@@ -26,12 +26,8 @@ router.get('/year', routeGuard, (req, res, next) => {
 });
 
 router.get('/categories', routeGuard, (req, res, next) => {
-  // let income = false;
   Category.find()
     .then((categories) => {
-      // if (label === 'income') {
-      //   income = true;
-      // }
       res.render('transactions/categories', {
         title: 'Categories',
         categories
@@ -45,7 +41,6 @@ router.get('/categories', routeGuard, (req, res, next) => {
 router.get('/add-category', routeGuard, (req, res, next) => {
   res.render('transactions/add-category');
 });
-// THIS DOES NOT WORK AS EXPECTED - DOES NOT STORE NEW CATEGORY IN DB
 router.post('/add-category', routeGuard, (req, res, next) => {
   const data = req.body;
   Category.create({
