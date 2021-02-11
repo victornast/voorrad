@@ -3,6 +3,7 @@
     {{#each categories}}
         <li>{{name}} / {{#compare label "===" "income"}}Income{{else}}Expense{{/compare}}
             <a href="/budget/edit-category/{{_id}}"> Edit</a>
+            <a href="/budget/delete-category/{{_id}}"> Delete</a>
         </li>
     
     {{/each}}

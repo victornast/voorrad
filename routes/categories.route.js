@@ -3,7 +3,7 @@
 const express = require('express');
 const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
-// const Transaction = require('./../models/transactions.model');
+const Transaction = require('./../models/transactions.model');
 const Category = require('./../models/categories.model');
 // const Budget = require('./../models/budget.model');
 const mongoose = require('mongoose');
@@ -59,6 +59,38 @@ router.post('/edit-category/:id', routeGuard, (req, res, next) => {
     name: data.name,
     plannedAmount: data.plannedAmount
   })
+    .then(() => {
+      res.redirect('/budget/categories');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+router.get('/delete-category/:id', routeGuard, (req, res, next) => {
+  const id = req.params.id;
+  let transactions;
+  return Category.findById(id)
+    .then((category) => {
+      return Transaction.find({ categoryId: category._id }).then((doc) => {
+        console.log(doc);
+        transactions = doc;
+        return Category.find({ budgetId: req.user.budgetId });
+      });
+    })
+    .then((categories) => {
+      res.render('transactions/delete', { transactions, categories });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+router.post('/delete-category/:id', routeGuard, (req, res, next) => {
+  const data = req.body;
+  const id = req.params.id;
+  console.log(data, id);
+  Category.findByIdAndDelete(id)
     .then(() => {
       res.redirect('/budget/categories');
     })

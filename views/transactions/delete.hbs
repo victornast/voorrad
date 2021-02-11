@@ -1,0 +1,17 @@
+<h4>Choose a new category for the transactions</h4>
+{{#each transactions}}
+<p>Amount: {{amount}}</p>
+<p>Source: {{transactionSource}}</p>
+{{/each}}
+
+
+<p>Category:</p>
+<form action="" method="POST">
+<select name="categogy" id="category" required>
+    <option value="">Select </option>
+    {{#each categories}}
+     <option value="{{_id}}"> {{name}}</option>
+    {{/each}}
+</select>
+<button type="submit">Delete & Update</button>
+</form>

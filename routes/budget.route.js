@@ -11,7 +11,6 @@ router.get('/month', routeGuard, (req, res, next) => {
   const id = req.user.budgetId;
   return Budget.findById(id)
     .then((result) => {
-      console.log(result);
       const userIds = [];
       for (const user of result.userId) {
         userIds.push({ userId: user });
