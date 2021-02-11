@@ -27,9 +27,9 @@ router.post('/income', routeGuard, (req, res, next) => {
   const data = req.body;
   Transaction.create({
     date: data.date,
-    amount: Math.abs(data.amount),
+    amount: [Math.abs(data.amount)],
     transactionSource: data.transactionSource,
-    categoryId: data.categoryId,
+    categoryId: [data.categoryId],
     userId: req.user._id,
     notes: data.notes
   })
@@ -60,9 +60,9 @@ router.post('/expense', routeGuard, (req, res, next) => {
   const data = req.body;
   Transaction.create({
     date: data.date,
-    amount: -Math.abs(data.amount),
+    amount: [-Math.abs(data.amount)],
     transactionSource: data.transactionSource,
-    categoryId: data.categoryId,
+    categoryId: [data.categoryId],
     userId: req.user._id,
     notes: data.notes
   })

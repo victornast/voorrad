@@ -2,9 +2,9 @@
 {{#each results}}
 <div>
 <p>Date of transaction: {{{ date date "DD/MM/YYYY" }}} </p>
-<p>Amount: {{amount}} EUR</p>
+<p>Amount: {{#each amount}}<span>{{this}},</span>{{/each}} EUR</p>
 <p>Some notes: {{notes}} </p>
-<p>Category: {{categoryId.name}}</p>
+<p>Category: {{#each categoryId}}<span>{{name}},</span>{{/each}}</p>
 <p>Source: {{transactionSource}}</p>
 <br>
 </div>

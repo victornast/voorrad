@@ -18,6 +18,7 @@ router.get('/month', routeGuard, (req, res, next) => {
       Transaction.find({ $or: userIds })
         .populate('categoryId')
         .then((results) => {
+          console.log(results);
           res.render('transactions/monthly', {
             title: 'Monthly View',
             results

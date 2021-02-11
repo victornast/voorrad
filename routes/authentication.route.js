@@ -52,7 +52,6 @@ router.post('/sign-up', (req, res, next) => {
       return Category.create(startingCategories);
     })
     .then((categories) => {
-      console.log(categories);
       res.redirect('/overview');
     })
     .catch((error) => {

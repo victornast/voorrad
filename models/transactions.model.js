@@ -6,17 +6,21 @@ const schema = new mongoose.Schema({
   date: {
     type: Date
   },
-  amount: {
-    type: Number,
-    required: true
-  },
+  amount: [
+    {
+      type: Number,
+      required: true
+    }
+  ],
   transactionSource: {
     type: String
   },
-  categoryId: {
-    type: mongoose.Types.ObjectId,
-    ref: 'Category'
-  },
+  categoryId: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Category'
+    }
+  ],
   userId: {
     type: mongoose.Types.ObjectId,
     ref: 'User'
