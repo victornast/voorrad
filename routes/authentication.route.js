@@ -28,10 +28,11 @@ router.post('/sign-up', (req, res, next) => {
     .then((user) => {
       req.session.userId = user._id;
       return Budget.create({
-        userId: user._id,
+        userId: [user._id],
         name: 'Personal Budget',
         currentBalance,
-        currency
+        currency,
+        active: true
       });
     })
     .then((budget) => {
@@ -41,7 +42,7 @@ router.post('/sign-up', (req, res, next) => {
     .then((defaultCategories) => {
       const startingCategories = [];
       for (const category of defaultCategories) {
-        let copyCat = { ...category };
+        const copyCat = { ...category };
         copyCat.budgetId = req.session.budgetId;
         copyCat.plannedAmount = 0;
         delete copyCat._id;
@@ -77,13 +78,13 @@ router.post('/sign-in', (req, res, next) => {
     .then((result) => {
       if (result) {
         req.session.userId = user._id;
-        return Budget.findById(user._id);
+        return Budget.find({ $and: [{ active: true }, { userId: user._id }] });
       } else {
         return Promise.reject(new Error('Wrong password.'));
       }
     })
     .then((budget) => {
-      req.session.budgetId = budget._id;
+      req.session.budgetId = budget[0]._id;
       res.redirect('/overview');
     })
     .catch((error) => {

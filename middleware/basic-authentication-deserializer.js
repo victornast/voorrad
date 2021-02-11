@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
         next(error);
       });
   } else {
+    console.log(userId, budgetId);
     next();
   }
 };

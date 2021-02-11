@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
   userId: {
-    type: mongoose.Types.ObjectId,
+    type: [mongoose.Types.ObjectId],
     ref: 'User'
   },
   name: {
@@ -19,6 +19,10 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ['€', '$']
+  },
+  active: {
+    type: Boolean,
+    required: true
   }
 });
 
