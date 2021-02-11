@@ -1,7 +1,10 @@
 <h1>Category List and Edit</h1>
 <ul>
     {{#each categories}}
-        <li>{{name}} / {{#compare label "===" "income"}}Income{{else}}Expense{{/compare}}</li>
+        <li>{{name}} / {{#compare label "===" "income"}}Income{{else}}Expense{{/compare}}
+            <a href="/budget/edit-category/{{_id}}"> Edit</a>
+        </li>
+    
     {{/each}}
 </ul>
 
@@ -10,6 +13,8 @@
 <a href="/budget/add-category"> 
  <button>Add category</button> 
 </a>
+
+
 
    
 

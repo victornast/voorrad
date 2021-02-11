@@ -1,1 +1,10 @@
-<h1>Form to edit transaction</h1>
+<h3>Edit the category</h3>
+<form method="POST">
+    <label for="edit-category">Add category:</label>
+    <input type="text" id="edit-category" name="name" placeholder="Category" value="{{category.name}}" required>
+
+    <label for="edit-planned-amount">Add planned amount:</label>
+    <input type="number" id="edit-planned-amount" name="plannedAmount" value="{{category.plannedAmount}}" placeholder="Planned Amount">
+
+    <button type="submit">Add</button>
+</form>
