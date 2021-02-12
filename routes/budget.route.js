@@ -17,9 +17,11 @@ router.get('/month', routeGuard, (req, res, next) => {
     start: new Date(currentDate.year, currentDate.month - 1),
     end: new Date(currentDate.year, currentDate.month)
   };
+  let currency;
   return Budget.findById(id)
     .then((result) => {
       const userIds = [];
+      currency = result.currency;
       for (const user of result.userId) {
         userIds.push({ userId: user });
       }
@@ -39,7 +41,8 @@ router.get('/month', routeGuard, (req, res, next) => {
         .then((results) => {
           res.render('transactions/monthly', {
             title: 'Monthly View',
-            results
+            results,
+            currency
           });
         });
     })
