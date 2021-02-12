@@ -9,16 +9,34 @@ const Budget = require('./../models/budget.model');
 
 router.get('/month', routeGuard, (req, res, next) => {
   const id = req.user.budgetId;
+  const currentDate = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1
+  };
+  const currentMonth = {
+    start: new Date(currentDate.year, currentDate.month - 1),
+    end: new Date(currentDate.year, currentDate.month)
+  };
   return Budget.findById(id)
     .then((result) => {
       const userIds = [];
       for (const user of result.userId) {
         userIds.push({ userId: user });
       }
-      Transaction.find({ $or: userIds })
+      Transaction.find({
+        $and: [
+          { $or: userIds },
+          {
+            $and: [
+              { date: { $gt: currentMonth.start } },
+              { date: { $lte: currentMonth.end } }
+            ]
+          }
+        ]
+      })
+        .sort({ date: 1 })
         .populate('categoryId')
         .then((results) => {
-          console.log(results);
           res.render('transactions/monthly', {
             title: 'Monthly View',
             results
@@ -30,7 +48,7 @@ router.get('/month', routeGuard, (req, res, next) => {
     });
 });
 
-router.get('/year', routeGuard, (req, res, next) => {
+router.get('/year', routeGuard, (req, res) => {
   res.render('transactions/yearly', { title: 'Yearly View' });
 });
 

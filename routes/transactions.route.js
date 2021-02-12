@@ -8,7 +8,7 @@ const Category = require('./../models/categories.model');
 const Transaction = require('./../models/transactions.model');
 
 router.get('/income', routeGuard, (req, res, next) => {
-  let today = new Date().toISOString().substr(0, 10);
+  const today = new Date().toISOString().substr(0, 10);
   console.log(today);
   Category.find({
     $and: [{ label: 'income' }, { budgetId: req.user.budgetId }]
@@ -33,15 +33,14 @@ router.post('/income', routeGuard, (req, res, next) => {
     userId: req.user._id,
     notes: data.notes
   })
-    .then((transaction) => {
-      console.log(transaction);
+    .then(() => {
       res.redirect('/budget/month');
     })
     .catch((error) => next(error));
 });
 
 router.get('/expense', routeGuard, (req, res, next) => {
-  let today = new Date().toISOString().substr(0, 10);
+  const today = new Date().toISOString().substr(0, 10);
   console.log(today);
   Category.find({
     $and: [{ label: 'expense' }, { budgetId: req.user.budgetId }]
@@ -66,8 +65,7 @@ router.post('/expense', routeGuard, (req, res, next) => {
     userId: req.user._id,
     notes: data.notes
   })
-    .then((transaction) => {
-      console.log(transaction);
+    .then(() => {
       res.redirect('/budget/month');
     })
     .catch((error) => next(error));
