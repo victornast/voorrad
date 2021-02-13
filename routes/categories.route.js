@@ -52,7 +52,6 @@ router.get('/edit-category/:id', routeGuard, (req, res, next) => {
 router.post('/edit-category/:id', routeGuard, (req, res, next) => {
   const data = req.body;
   const id = req.params.id;
-  console.log(data, id);
   Category.findByIdAndUpdate(id, {
     name: data.name,
     plannedAmount: data.plannedAmount
@@ -71,7 +70,6 @@ router.get('/delete-category/:id', routeGuard, (req, res, next) => {
   return Category.findById(id)
     .then((category) => {
       return Transaction.find({ categoryId: category._id }).then((doc) => {
-        console.log(doc);
         transactions = doc;
         return Category.find({ budgetId: req.user.budgetId });
       });

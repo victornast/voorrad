@@ -40,14 +40,10 @@ router.post('/sign-up', (req, res, next) => {
       return Default.find();
     })
     .then((defaultCategories) => {
-      const startingCategories = [];
-      for (const category of defaultCategories) {
-        const copyCat = {};
-        copyCat.label = category.label;
-        copyCat.name = category.name;
-        copyCat.budgetId = req.session.budgetId;
-        copyCat.plannedAmount = 0;
-        startingCategories.push(copyCat);
+      const startingCategories = JSON.parse(JSON.stringify(defaultCategories));
+      for (const category of startingCategories) {
+        delete category._id;
+        category.budgetId = req.session.budgetId;
       }
       return Category.create(startingCategories);
     })

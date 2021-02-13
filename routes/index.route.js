@@ -6,8 +6,8 @@ const routeGuard = require('../middleware/route-guard');
 
 const Budget = require('./../models/budget.model');
 
-router.get('/', (req, res, next) => {
-  res.render('home', { title: 'Hello World!' });
+router.get('/', (req, res) => {
+  res.render('home', { title: 'Voorrad' });
 });
 
 router.get('/overview', routeGuard, (req, res, next) => {
@@ -18,11 +18,11 @@ router.get('/overview', routeGuard, (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.get('/profile', routeGuard, (req, res, next) => {
+router.get('/profile', routeGuard, (req, res) => {
   res.render('authentication/profile', { title: 'Profile Settings' });
 });
 
-router.post('/profile', routeGuard, (req, res, next) => {
+router.post('/profile', routeGuard, (req, res) => {
   res.redirect('/profile');
 });
 

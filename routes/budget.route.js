@@ -66,10 +66,6 @@ router.get('/month', routeGuard, (req, res, next) => {
               category.plannedAmount - category.actualAmount;
           }
         }
-        console.log(category);
-        // if (category.plannedAmount + category.actualAmount === 0) {
-        //   categories.splice(index, 1);
-        // }
       }
 
       res.render('transactions/monthly', {

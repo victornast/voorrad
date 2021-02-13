@@ -1,14 +1,19 @@
 <form action="/authentication/sign-up" method="POST">
-  <label for="input-name">Name</label>
-  <input type="text" id="input-name" name="name" placeholder="Your Name" />
-  <label for="input-email">Email</label>
-  <input type="email" id="input-email" name="email" placeholder="Your Email" />
-  <label for="input-password">Password</label>
-  <input type="password" name="password" id="input-password" placeholder="A Strong Password" />
-  <label for="input-opening-balance">Current Balance</label>
-  <input type="number" id="input-opening-balance" name="openingBalance" value="0" placeholder="Current Balance" />
-  <label for="input-currency">Currency</label>    
-  <select type="currency" id="input-currency" name="currency" required>
+
+  <label for="user-name">Name</label>
+  <input type="text" id="user-name" name="name" placeholder="Your Name" />
+
+  <label for="user-email">Email</label>
+  <input type="email" id="user-email" name="email" placeholder="Your Email" />
+
+  <label for="user-password">Password</label>
+  <input type="password" name="password" id="user-password" placeholder="A Strong Password" />
+
+  <label for="user-opening-balance">Starting Balance</label>
+  <input type="number" id="user-opening-balance" name="openingBalance" value="0" placeholder="Current Balance" />
+
+  <label for="user-currency">Currency</label>    
+  <select type="currency" id="user-currency" name="currency" required>
      <option value="€" selected>€</option>
      <option value="$">$</option>
   </select>
