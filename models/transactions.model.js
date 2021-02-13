@@ -21,6 +21,16 @@ const schema = new mongoose.Schema({
       ref: 'Category'
     }
   ],
+  // categories: [{
+  //   categoryId: {
+  //     type: mongoose.Types.ObjectId,
+  //     ref: 'Category'
+  //   },
+  //   amount: {
+  //     type: Number,
+  //     required: true
+  //   }
+  // }],
   userId: {
     type: mongoose.Types.ObjectId,
     ref: 'User'

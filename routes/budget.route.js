@@ -4,7 +4,7 @@ const express = require('express');
 const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
 const Transaction = require('./../models/transactions.model');
-// const Category = require('./../models/categories.model');
+const Category = require('./../models/categories.model');
 const Budget = require('./../models/budget.model');
 
 router.get('/month', routeGuard, (req, res, next) => {
@@ -18,14 +18,28 @@ router.get('/month', routeGuard, (req, res, next) => {
     end: new Date(currentDate.year, currentDate.month)
   };
   let currency;
-  return Budget.findById(id)
+  let categories = [];
+
+  const userIds = [];
+  Budget.findById(id)
     .then((result) => {
-      const userIds = [];
       currency = result.currency;
       for (const user of result.userId) {
         userIds.push({ userId: user });
       }
-      Transaction.find({
+      return Category.find({ budgetId: id });
+    })
+    .then((results) => {
+      for (const category of results) {
+        const copyCat = {};
+        copyCat.actualAmount = 0;
+        copyCat.plannedAmount = category.plannedAmount;
+        copyCat.name = category.name;
+        copyCat.label = category.label;
+        categories.push(copyCat);
+      }
+
+      return Transaction.find({
         $and: [
           { $or: userIds },
           {
@@ -37,15 +51,35 @@ router.get('/month', routeGuard, (req, res, next) => {
         ]
       })
         .sort({ date: 1 })
-        .populate('categoryId')
-        .then((results) => {
-          res.render('transactions/monthly', {
-            title: 'Monthly View',
-            results,
-            currency
-          });
-        });
+        .populate('categoryId');
     })
+
+    .then((results) => {
+      for (const [index, category] of categories.entries()) {
+        for (const transaction of results) {
+          if (category.name === transaction.categoryId[0].name) {
+            const func = transaction.amount.reduce((a, b) => {
+              return a + b;
+            }, 0);
+            category.actualAmount += func;
+            category.difference =
+              category.plannedAmount - category.actualAmount;
+          }
+        }
+        console.log(category);
+        // if (category.plannedAmount + category.actualAmount === 0) {
+        //   categories.splice(index, 1);
+        // }
+      }
+
+      res.render('transactions/monthly', {
+        title: 'Monthly View',
+        results,
+        currency,
+        categories
+      });
+    })
+
     .catch((error) => {
       next(error);
     });

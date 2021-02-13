@@ -18,3 +18,44 @@
 </div>
 {{/each}}
 
+<table>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Planned</th>
+            <th>Actual </th>
+            <th>Difference</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each categories}}
+            {{#compare label "===" "income"}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{plannedAmount}}</td>
+            <td>{{actualAmount}}</td>
+            <td>{{difference}}</td>
+        </tr>
+       
+    
+        {{/compare}}
+       {{/each}}
+
+       {{#each categories}}
+            {{#compare label "===" "expense"}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{plannedAmount}}</td>
+            <td>{{actualAmount}}</td>
+            <td>{{difference}}</td>
+        </tr>
+        {{/compare}}
+       {{/each}}
+    </tbody>
+</table>
+{{!-- //{{#compare label "===" "income"}}Income{{else}}Expense{{/compare}} --}}
+{{!-- {{#each categories}}
+<p>
+    {{name}}
+</p>
+{{/each}} --}}
