@@ -5,8 +5,6 @@ const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
 const Transaction = require('./../models/transactions.model');
 const Category = require('./../models/categories.model');
-// const Budget = require('./../models/budget.model');
-const mongoose = require('mongoose');
 
 router.get('/categories', routeGuard, (req, res, next) => {
   Category.find({ budgetId: req.user.budgetId })
@@ -21,7 +19,7 @@ router.get('/categories', routeGuard, (req, res, next) => {
     });
 });
 
-router.get('/add-category', routeGuard, (req, res, next) => {
+router.get('/add-category', routeGuard, (req, res) => {
   res.render('transactions/add-category');
 });
 
@@ -109,7 +107,7 @@ router.post('/delete-category/:id', routeGuard, (req, res, next) => {
     });
 });
 
-router.post('/categories', routeGuard, (req, res, next) => {
+router.post('/categories', routeGuard, (req, res) => {
   res.redirect('/budget/categories');
 });
 
