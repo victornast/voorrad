@@ -19,7 +19,7 @@ router.get('/categories', routeGuard, (req, res, next) => {
     });
 });
 
-router.get('/add-category', routeGuard, (req, res, next) => {
+router.get('/add-category', routeGuard, (req, res) => {
   res.render('transactions/add-category');
 });
 
@@ -107,7 +107,7 @@ router.post('/delete-category/:id', routeGuard, (req, res, next) => {
     });
 });
 
-router.post('/categories', routeGuard, (req, res, next) => {
+router.post('/categories', routeGuard, (req, res) => {
   res.redirect('/budget/categories');
 });
 

@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
   name: {
     type: String
   },
-  currentBalance: {
+  openingBalance: {
     type: Number,
     default: 0,
     required: true

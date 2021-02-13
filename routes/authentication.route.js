@@ -10,12 +10,12 @@ const Category = require('./../models/categories.model');
 
 const router = new Router();
 
-router.get('/sign-up', (req, res, next) => {
+router.get('/sign-up', (req, res) => {
   res.render('authentication/sign-up');
 });
 
 router.post('/sign-up', (req, res, next) => {
-  const { name, email, password, currentBalance, currency } = req.body;
+  const { name, email, password, openingBalance, currency } = req.body;
   bcryptjs
     .hash(password, 10)
     .then((hash) => {
@@ -30,7 +30,7 @@ router.post('/sign-up', (req, res, next) => {
       return Budget.create({
         userId: [user._id],
         name: 'Personal Budget',
-        currentBalance,
+        openingBalance,
         currency,
         active: true
       });
@@ -42,7 +42,7 @@ router.post('/sign-up', (req, res, next) => {
     .then((defaultCategories) => {
       const startingCategories = [];
       for (const category of defaultCategories) {
-        let copyCat = {};
+        const copyCat = {};
         copyCat.label = category.label;
         copyCat.name = category.name;
         copyCat.budgetId = req.session.budgetId;
@@ -51,7 +51,7 @@ router.post('/sign-up', (req, res, next) => {
       }
       return Category.create(startingCategories);
     })
-    .then((categories) => {
+    .then(() => {
       res.redirect('/overview');
     })
     .catch((error) => {
@@ -59,7 +59,7 @@ router.post('/sign-up', (req, res, next) => {
     });
 });
 
-router.get('/sign-in', (req, res, next) => {
+router.get('/sign-in', (req, res) => {
   res.render('authentication/sign-in');
 });
 
@@ -92,7 +92,7 @@ router.post('/sign-in', (req, res, next) => {
     });
 });
 
-router.post('/sign-out', (req, res, next) => {
+router.post('/sign-out', (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
