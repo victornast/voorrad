@@ -3,7 +3,7 @@
 const express = require('express');
 const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
-const Transaction = require('./../models/transactions.model');
+const Segment = require('./../models/segment.model');
 const Category = require('./../models/categories.model');
 
 router.get('/', routeGuard, (req, res, next) => {
@@ -70,16 +70,16 @@ router.post('/edit/:id', routeGuard, (req, res, next) => {
 
 router.get('/delete/:id', routeGuard, (req, res, next) => {
   const id = req.params.id;
-  let transactions;
+  let transactionSegments;
   return Category.findById(id)
     .then((category) => {
-      return Transaction.find({ categoryId: category._id }).then((doc) => {
-        transactions = doc;
+      return Segment.find({ categoryId: category._id }).then((doc) => {
+        transactionSegments = doc;
         return Category.find({ budgetId: req.user.budgetId });
       });
     })
     .then((categories) => {
-      res.render('categories/delete', { transactions, categories });
+      res.render('categories/delete', { transactionSegments, categories });
     })
     .catch((error) => {
       next(error);
@@ -90,14 +90,7 @@ router.post('/delete/:id', routeGuard, (req, res, next) => {
   const data = req.body;
   const id = req.params.id;
   const newId = data.newCategory;
-  Transaction.updateMany(
-    { categoryId: id },
-    {
-      $set: {
-        'categoryId.$': newId
-      }
-    }
-  )
+  Segment.updateMany({ categoryId: id }, { categoryId: newId })
     .then(() => {
       return Category.findByIdAndDelete(id);
     })

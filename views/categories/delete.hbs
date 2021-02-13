@@ -1,27 +1,27 @@
-<h4>
-    {{#if transactions}}
+<h2>
+    {{#if transactionSegments}}
     Choose a new category for the transactions
-    {{else}} Confirm deletion
+    {{else}}
+    Confirm deletion
     {{/if}}
-</h4>
+</h2>
 
-{{#each transactions}}
- <p>Amount: {{amount}}</p>
- <p>Source: {{transactionSource}}</p>
-{{/each}}
-
-<form action="" method="POST">
-    {{#if transactions}}
-<label for="category">Category</label>
-<select name="newCategory" id="category" required>
-    <option value="">Select </option>
-    {{#each categories}}
-     <option value="{{_id}}"> {{name}}</option>
+<ul>
+    {{#each transactionSegments}}
+    <li>{{amount}}</li>
     {{/each}}
-</select>
- {{/if}}
+</ul>
 
-<button type="submit">Delete {{#if transactions}} & Update {{/if}}
-</button>
+<form method="POST">
+    {{#if transactionSegments}}
+    <label for="new-segments-category">Category</label>
+    <select name="newCategory" id="new-segments-category" required>
+        {{#each categories}}
+        <option value="{{_id}}"> {{name}}</option>
+        {{/each}}
+    </select>
+    {{/if}}
+
+<button type="submit">Delete {{#if transactionSegments}} & Update {{/if}}</button>
 
 </form>
