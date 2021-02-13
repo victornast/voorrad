@@ -5,8 +5,6 @@ const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
 const Transaction = require('./../models/transactions.model');
 const Category = require('./../models/categories.model');
-// const Budget = require('./../models/budget.model');
-const mongoose = require('mongoose');
 
 router.get('/categories', routeGuard, (req, res, next) => {
   Category.find({ budgetId: req.user.budgetId })

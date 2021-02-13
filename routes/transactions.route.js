@@ -9,7 +9,6 @@ const Transaction = require('./../models/transactions.model');
 
 router.get('/income', routeGuard, (req, res, next) => {
   const today = new Date().toISOString().substr(0, 10);
-  console.log(today);
   Category.find({
     $and: [{ label: 'income' }, { budgetId: req.user.budgetId }]
   })
@@ -41,7 +40,6 @@ router.post('/income', routeGuard, (req, res, next) => {
 
 router.get('/expense', routeGuard, (req, res, next) => {
   const today = new Date().toISOString().substr(0, 10);
-  console.log(today);
   Category.find({
     $and: [{ label: 'expense' }, { budgetId: req.user.budgetId }]
   })
