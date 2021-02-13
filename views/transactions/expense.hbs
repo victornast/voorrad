@@ -1,27 +1,26 @@
 <h1>Add expense</h1>
 
-<form action="" method="POST">
-    {{!-- //in case we need to add upload option enctype="multipart/form-data"   --}}
+<form method="POST">
 
-    <label for="date">Date</label>
-    <input type="date" id="date" name="date" value={{today}}>
+    <label for="transaction-date">Date:</label>
+    <input type="date" id="transaction-date" name="date" value={{today}}>
 
-    <label for="input-source">Source</label>    
-    <input type="text" id="input-source" name="transactionSource" required >
+    <label for="transaction-source">Recipient:</label>    
+    <input type="text" id="transaction-source" name="transactionSource" required >
 
-    <label for="amount">Amount</label>    
-    <input type="number" id="amount" name="amount" required >
+    <label for="segment-amount">Amount:</label>    
+    <input type="number" id="segment-amount" name="amount" required >
     
-    <label for="category">Category</label>    
-    <select type="category" id="category" name="categoryId" required>
-        <option value="" selected >Category</option>
+    <label for="segment-category">Category</label>    
+    <select id="segment-category" name="categoryId" required>
         {{#each categories}}
-       <option value="{{_id}}" >{{name}}</option>
+            <option value="{{_id}}" >{{name}}</option>
         {{/each}}
     </select>
 
-    <label for="notes">Notes</label>
-    <textarea id="notes" name="notes" placeholder="Write anything" rows="2" cols="8"></textarea>
+    <label for="transaction-notes">Notes</label>
+    <textarea id="transaction-notes" name="notes"></textarea>
+    
     <button type="sumbit">Add</button>
 
 </form>

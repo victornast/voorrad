@@ -20,7 +20,7 @@ router.get('/', routeGuard, (req, res, next) => {
 });
 
 router.get('/add', routeGuard, (req, res) => {
-  res.render('categories/add-category');
+  res.render('categories/add');
 });
 
 router.post('/add', routeGuard, (req, res, next) => {

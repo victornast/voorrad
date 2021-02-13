@@ -6,31 +6,15 @@ const schema = new mongoose.Schema({
   date: {
     type: Date
   },
-  amount: [
-    {
-      type: Number,
-      required: true
-    }
-  ],
   transactionSource: {
     type: String
   },
-  categoryId: [
+  segments: [
     {
       type: mongoose.Types.ObjectId,
-      ref: 'Category'
+      ref: 'Segment'
     }
   ],
-  // categories: [{
-  //   categoryId: {
-  //     type: mongoose.Types.ObjectId,
-  //     ref: 'Category'
-  //   },
-  //   amount: {
-  //     type: Number,
-  //     required: true
-  //   }
-  // }],
   userId: {
     type: mongoose.Types.ObjectId,
     ref: 'User'

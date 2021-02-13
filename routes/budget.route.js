@@ -55,19 +55,6 @@ router.get('/month', routeGuard, (req, res, next) => {
     })
 
     .then((results) => {
-      for (const category of categories) {
-        for (const transaction of results) {
-          if (category.name === transaction.categoryId[0].name) {
-            const func = transaction.amount.reduce((a, b) => {
-              return a + b;
-            }, 0);
-            category.actualAmount += func;
-            category.difference =
-              category.plannedAmount - category.actualAmount;
-          }
-        }
-      }
-
       res.render('transactions/monthly', {
         title: 'Monthly View',
         results,
@@ -79,10 +66,6 @@ router.get('/month', routeGuard, (req, res, next) => {
     .catch((error) => {
       next(error);
     });
-});
-
-router.get('/year', routeGuard, (req, res) => {
-  res.render('transactions/yearly', { title: 'Yearly View' });
 });
 
 module.exports = router;

@@ -6,6 +6,7 @@ const routeGuard = require('../middleware/route-guard');
 
 const Category = require('./../models/categories.model');
 const Transaction = require('./../models/transactions.model');
+const Segment = require('../models/segment.model');
 
 router.get('/income', routeGuard, (req, res, next) => {
   const today = new Date().toISOString().substr(0, 10);
@@ -14,7 +15,7 @@ router.get('/income', routeGuard, (req, res, next) => {
   })
     .then((categories) => {
       res.render('transactions/income', {
-        title: 'Add Transaction',
+        title: 'Add Income',
         categories,
         today
       });
@@ -24,14 +25,19 @@ router.get('/income', routeGuard, (req, res, next) => {
 
 router.post('/income', routeGuard, (req, res, next) => {
   const data = req.body;
-  Transaction.create({
-    date: data.date,
-    amount: [Math.abs(data.amount)],
-    transactionSource: data.transactionSource,
-    categoryId: [data.categoryId],
-    userId: req.user._id,
-    notes: data.notes
+  Segment.create({
+    categoryId: data.categoryId,
+    amount: Math.abs(data.amount)
   })
+    .then((segment) => {
+      return Transaction.create({
+        date: data.date,
+        transactionSource: data.transactionSource,
+        segments: [segment._id],
+        userId: req.user._id,
+        notes: data.notes
+      });
+    })
     .then(() => {
       res.redirect('/budget/month');
     })
@@ -45,7 +51,7 @@ router.get('/expense', routeGuard, (req, res, next) => {
   })
     .then((categories) => {
       res.render('transactions/expense', {
-        title: 'Add Transaction',
+        title: 'Add Expense',
         categories,
         today
       });
@@ -55,28 +61,23 @@ router.get('/expense', routeGuard, (req, res, next) => {
 
 router.post('/expense', routeGuard, (req, res, next) => {
   const data = req.body;
-  Transaction.create({
-    date: data.date,
-    amount: [-Math.abs(data.amount)],
-    transactionSource: data.transactionSource,
-    categoryId: [data.categoryId],
-    userId: req.user._id,
-    notes: data.notes
+  Segment.create({
+    categoryId: data.categoryId,
+    amount: Math.abs(data.amount)
   })
+    .then((segment) => {
+      return Transaction.create({
+        date: data.date,
+        transactionSource: data.transactionSource,
+        segments: [segment._id],
+        userId: req.user._id,
+        notes: data.notes
+      });
+    })
     .then(() => {
       res.redirect('/budget/month');
     })
     .catch((error) => next(error));
-});
-
-router.get('/:id/edit', routeGuard, (req, res, next) => {
-  const id = req.params.id;
-  res.render('transactions/edit', { title: 'Edit Transaction' });
-});
-
-router.post('/:id/edit', routeGuard, (req, res, next) => {
-  const id = req.params.id;
-  res.redirect('/budget/month');
 });
 
 module.exports = router;
