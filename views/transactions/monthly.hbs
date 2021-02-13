@@ -1,23 +1,58 @@
 <h1>{{title}}</h1>
-{{#each results}}
-<div>
-<p>Date of transaction: {{{ date date "DD/MM/YYYY" }}} </p>
-<p>Source: {{transactionSource}}</p>
-{{#each amount}}
-    <p>
-        <span>{{this}} {{../../currency}} -</span>
-        <span>
-            {{#with (lookup ../categoryId @index)}}
-            {{name}}
-            {{/with}}
-        </span>
-    </p>
-{{/each}}
-<p>Some notes: {{notes}}</p>
-<br>
-</div>
-{{/each}}
 
+<h2>Monthly Income</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Sender</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each incomes}}
+            <tr>
+                <td>{{{ date date "DD/MM/YYYY" }}}</td>
+                <td>{{transactionSource}}</td>
+                {{#each segments}}
+                    <td>{{../../budget.currency}}{{amount}}</td>
+                    <td>{{#with categoryId}}{{name}}{{/with}}</td>
+                {{/each}}
+                <td>{{notes}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Monthly Expenses</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Recipient</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each expenses}}
+            <tr>
+                <td>{{{ date date "DD/MM/YYYY" }}}</td>
+                <td>{{transactionSource}}</td>
+                {{#each segments}}
+                    <td>{{../../budget.currency}}{{amount}}</td>
+                    <td>{{#with categoryId}}{{name}}{{/with}}</td>
+                {{/each}}
+                <td>{{notes}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Monthly Budget Values</h2>
 <table>
     <thead>
         <tr>
@@ -53,9 +88,3 @@
        {{/each}}
     </tbody>
 </table>
-{{!-- //{{#compare label "===" "income"}}Income{{else}}Expense{{/compare}} --}}
-{{!-- {{#each categories}}
-<p>
-    {{name}}
-</p>
-{{/each}} --}}
