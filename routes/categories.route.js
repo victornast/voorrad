@@ -87,8 +87,18 @@ router.get('/delete-category/:id', routeGuard, (req, res, next) => {
 router.post('/delete-category/:id', routeGuard, (req, res, next) => {
   const data = req.body;
   const id = req.params.id;
-  console.log(data, id);
-  Category.findByIdAndDelete(id)
+  const newId = data.newCategory;
+  Transaction.updateMany(
+    { categoryId: id },
+    {
+      $set: {
+        'categoryId.$': newId
+      }
+    }
+  )
+    .then(() => {
+      return Category.findByIdAndDelete(id);
+    })
     .then(() => {
       res.redirect('/budget/categories');
     })

@@ -1,18 +1,27 @@
-<h4>Choose a new category for the transactions</h4>
+<h4>
+    {{#if transactions}}
+    Choose a new category for the transactions
+    {{else}} Confirm deletion
+    {{/if}}
+</h4>
+
 {{#each transactions}}
-<p>Amount: {{amount}}</p>
-<p>Source: {{transactionSource}}</p>
+ <p>Amount: {{amount}}</p>
+ <p>Source: {{transactionSource}}</p>
 {{/each}}
 
-
-
-<p>Category:</p>
 <form action="" method="POST">
-<select name="categogy" id="category" required>
+    {{#if transactions}}
+<label for="category">Category</label>
+<select name="newCategory" id="category" required>
     <option value="">Select </option>
     {{#each categories}}
      <option value="{{_id}}"> {{name}}</option>
     {{/each}}
 </select>
-<button type="submit">Delete & Update</button>
+ {{/if}}
+
+<button type="submit">Delete {{#if transactions}} & Update {{/if}}
+</button>
+
 </form>
