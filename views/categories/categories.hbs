@@ -1,0 +1,36 @@
+<h1>Category List and Edit</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Planned Amount</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>     
+    {{#each categories}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{#compare label "===" "income"}}Income{{else}}Expense{{/compare}}</td>
+            <td>{{plannedAmount}}</td>
+            <td>
+                <a href="/categories/edit/{{_id}}">Edit</a>
+                <a href="/categories/delete/{{_id}}">Delete</a>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+
+
+<a href="/categories/add">Add category</a>
+
+
+
+   
+
+
+

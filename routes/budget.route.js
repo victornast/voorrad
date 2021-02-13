@@ -18,7 +18,7 @@ router.get('/month', routeGuard, (req, res, next) => {
     end: new Date(currentDate.year, currentDate.month)
   };
   let currency;
-  let categories = [];
+  const categories = [];
 
   const userIds = [];
   Budget.findById(id)
@@ -55,7 +55,7 @@ router.get('/month', routeGuard, (req, res, next) => {
     })
 
     .then((results) => {
-      for (const [index, category] of categories.entries()) {
+      for (const category of categories) {
         for (const transaction of results) {
           if (category.name === transaction.categoryId[0].name) {
             const func = transaction.amount.reduce((a, b) => {

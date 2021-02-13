@@ -6,10 +6,10 @@ const routeGuard = require('../middleware/route-guard');
 const Transaction = require('./../models/transactions.model');
 const Category = require('./../models/categories.model');
 
-router.get('/categories', routeGuard, (req, res, next) => {
+router.get('/', routeGuard, (req, res, next) => {
   Category.find({ budgetId: req.user.budgetId })
     .then((categories) => {
-      res.render('transactions/categories', {
+      res.render('categories/categories', {
         title: 'Categories',
         categories
       });
@@ -19,11 +19,11 @@ router.get('/categories', routeGuard, (req, res, next) => {
     });
 });
 
-router.get('/add-category', routeGuard, (req, res) => {
-  res.render('transactions/add-category');
+router.get('/add', routeGuard, (req, res) => {
+  res.render('categories/add-category');
 });
 
-router.post('/add-category', routeGuard, (req, res, next) => {
+router.post('/add', routeGuard, (req, res, next) => {
   const data = req.body;
   Category.create({
     label: data.label,
@@ -32,39 +32,43 @@ router.post('/add-category', routeGuard, (req, res, next) => {
     plannedAmount: data.plannedAmount
   })
     .then(() => {
-      res.redirect('/budget/categories');
+      res.redirect('/categories');
     })
     .catch((error) => {
       next(error);
     });
 });
-router.get('/edit-category/:id', routeGuard, (req, res, next) => {
+router.get('/edit/:id', routeGuard, (req, res, next) => {
   const id = req.params.id;
   Category.findById(id)
     .then((category) => {
-      res.render('transactions/edit', { category });
+      res.render('categories/edit', { category });
     })
     .catch((error) => {
       next(error);
     });
 });
 
-router.post('/edit-category/:id', routeGuard, (req, res, next) => {
+router.post('/edit/:id', routeGuard, (req, res, next) => {
   const data = req.body;
   const id = req.params.id;
-  Category.findByIdAndUpdate(id, {
-    name: data.name,
-    plannedAmount: data.plannedAmount
-  })
+  Category.findByIdAndUpdate(
+    id,
+    {
+      name: data.name,
+      plannedAmount: data.plannedAmount
+    },
+    { useFindAndModify: false }
+  )
     .then(() => {
-      res.redirect('/budget/categories');
+      res.redirect('/categories');
     })
     .catch((error) => {
       next(error);
     });
 });
 
-router.get('/delete-category/:id', routeGuard, (req, res, next) => {
+router.get('/delete/:id', routeGuard, (req, res, next) => {
   const id = req.params.id;
   let transactions;
   return Category.findById(id)
@@ -75,14 +79,14 @@ router.get('/delete-category/:id', routeGuard, (req, res, next) => {
       });
     })
     .then((categories) => {
-      res.render('transactions/delete', { transactions, categories });
+      res.render('categories/delete', { transactions, categories });
     })
     .catch((error) => {
       next(error);
     });
 });
 
-router.post('/delete-category/:id', routeGuard, (req, res, next) => {
+router.post('/delete/:id', routeGuard, (req, res, next) => {
   const data = req.body;
   const id = req.params.id;
   const newId = data.newCategory;
@@ -98,15 +102,11 @@ router.post('/delete-category/:id', routeGuard, (req, res, next) => {
       return Category.findByIdAndDelete(id);
     })
     .then(() => {
-      res.redirect('/budget/categories');
+      res.redirect('/categories');
     })
     .catch((error) => {
       next(error);
     });
-});
-
-router.post('/categories', routeGuard, (req, res) => {
-  res.redirect('/budget/categories');
 });
 
 module.exports = router;

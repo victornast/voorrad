@@ -67,7 +67,7 @@ app.use('/', baseRouter);
 app.use('/authentication', authenticationRouter);
 app.use('/transaction', transactionsRouter);
 app.use('/budget', budgetRouter);
-app.use('/budget', categoriesRouter);
+app.use('/categories', categoriesRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
@@ -75,7 +75,7 @@ app.use((req, res, next) => {
 });
 
 // Catch all error handler
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
   // Set error information, with stack only available in development
   res.locals.message = error.message;
   res.locals.error = req.app.get('env') === 'development' ? error : {};
