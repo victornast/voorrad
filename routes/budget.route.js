@@ -154,4 +154,106 @@ router.get('/month', routeGuard, async (req, res, next) => {
   }
 });
 
+router.get('/year', routeGuard, async (req, res, next) => {
+  try {
+    const budget = await Budget.findById(req.user.budgetId).lean();
+    for (let index = 0; index < budget.userId.length; index++) {
+      budget.userId[index] = { userId: budget.userId[index] };
+    }
+    budget.currentBalance = budget.openingBalance;
+    budget.monthlyIncome = Array.from({ length: 12 }, (_, i) => ({
+      month: i + 1,
+      value: 0
+    }));
+    budget.monthlyExpense = Array.from({ length: 12 }, (_, i) => ({
+      month: i + 1,
+      value: 0
+    }));
+    budget.monthlyStartBalance = Array.from({ length: 12 }, (_, i) => ({
+      month: i + 1,
+      value: budget.openingBalance
+    }));
+    budget.monthlySavings = Array.from({ length: 12 }, (_, i) => ({
+      month: i + 1,
+      value: 0
+    }));
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
+    const viewedYear = {
+      prev: new Date(currentYear - 1, 12),
+      current: new Date(currentYear, 12)
+    };
+
+    const transactions = await Transaction.find({
+      $and: [
+        { $or: budget.userId },
+        {
+          $and: [
+            { date: { $gt: viewedYear.prev } },
+            { date: { $lte: viewedYear.current } }
+          ]
+        }
+      ]
+    })
+      .sort({ date: 1 })
+      .populate({ path: 'segments', populate: { path: 'categoryId' } })
+      .lean();
+
+    const categories = await Category.find({
+      budgetId: req.user.budgetId
+    }).lean();
+
+    for (const transaction of transactions) {
+      const transactionMonth = transaction.date.getMonth();
+      for (const segment of transaction.segments) {
+        if (segment.categoryId.label === 'income') {
+          budget.monthlyIncome[transactionMonth].value += segment.amount;
+          budget.currentBalance += segment.amount;
+        } else {
+          budget.monthlyExpense[transactionMonth].value += segment.amount;
+          budget.currentBalance -= segment.amount;
+        }
+      }
+    }
+
+    if (currentMonth < 12) {
+      let plannedIncome = 0;
+      let plannedExpense = 0;
+      for (const category of categories) {
+        if (category.label === 'income') {
+          plannedIncome += category.plannedAmount;
+        } else {
+          plannedExpense += category.plannedAmount;
+        }
+      }
+      for (
+        let remainingMonths = currentMonth;
+        remainingMonths < 12;
+        remainingMonths++
+      ) {
+        budget.monthlyExpense[remainingMonths].value += plannedExpense;
+        budget.monthlyIncome[remainingMonths].value += plannedIncome;
+      }
+    }
+
+    for (let month = 0; month < 12; month++) {
+      budget.monthlySavings[month].value =
+        budget.monthlyIncome[month].value - budget.monthlyExpense[month].value;
+      budget.monthlyStartBalance[month].value +=
+        budget.monthlyIncome[month].value;
+      budget.monthlyStartBalance[month].value -=
+        budget.monthlyExpense[month].value;
+      if (month < 11) {
+        budget.monthlyStartBalance[month + 1].value =
+          budget.monthlyStartBalance[month].value;
+      }
+    }
+    console.log(budget);
+
+    res.render('transactions/yearly', { title: 'Yearly View', budget });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

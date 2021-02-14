@@ -1,1 +1,40 @@
-<h1>{{title}}</h1>
+<h2>{{title}}</h2>
+<h3>{{user.name}}'s Current Balance: {{budget.currency}}{{budget.currentBalance}}</h3>
+
+<h3>Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            {{#each budget.monthlyIncome}}
+                <th>{{date month 'MMM'}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Income</th>
+            {{#each budget.monthlyIncome}}
+                <td>{{value}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <th>Expenses</th>
+            {{#each budget.monthlyExpense}}
+                <td>{{value}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <th>Net Savings</th>
+            {{#each budget.monthlySavings}}
+                <td>{{value}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <th>Ending Balance</th>
+            {{#each budget.monthlyStartBalance}}
+                <td>{{value}}</td>
+            {{/each}}
+        </tr>
+    </tbody>
+</table>
