@@ -17,7 +17,7 @@
             {{#each segments}}
                     <tr>
                         {{#if @first}}
-                            <td>{{{ date date "DD/MM/YYYY" }}}</td>
+                            <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
                             <td>{{../transactionSource}}</td>
                         {{else}}
                             <td></td><td></td>
@@ -51,7 +51,7 @@
                 {{#each segments}}
                     <tr>
                         {{#if @first}}
-                            <td>{{{ date date "DD/MM/YYYY" }}}</td>
+                            <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
                             <td>{{../transactionSource}}</td>
                         {{else}}
                             <td></td><td></td>

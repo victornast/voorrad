@@ -18,7 +18,8 @@ router.get('/month', routeGuard, async (req, res, next) => {
     const viewedMonth = {
       start: new Date(currentDate.year, currentDate.month - 1),
       end: new Date(currentDate.year, currentDate.month),
-      startYear: new Date(currentDate.year - 1, 12)
+      startYear: new Date(currentDate.year - 1, 12),
+      endYear: new Date(currentDate.year, 12)
     };
 
     const budget = await Budget.findById(id).lean();
@@ -36,16 +37,19 @@ router.get('/month', routeGuard, async (req, res, next) => {
         { $or: budget.userId },
         {
           $and: [
-            { date: { $gt: viewedMonth.start } },
-            { date: { $lte: viewedMonth.end } }
+            { date: { $gt: viewedMonth.startYear } },
+            { date: { $lte: viewedMonth.endYear } }
           ]
         }
       ]
     })
       .sort({ date: 1 })
-      .populate({ path: 'segments', populate: { path: 'categoryId' } });
+      .populate({ path: 'segments', populate: { path: 'categoryId' } })
+      .lean();
+
     const incomes = [],
       expenses = [];
+
     for (const transaction of transactions) {
       for (const segment of transaction.segments) {
         if (segment.categoryId.label === 'income') {
