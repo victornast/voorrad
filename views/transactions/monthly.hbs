@@ -68,7 +68,7 @@
     </tbody>
 </table>
 
-<h2>Monthly Budget Values</h2>
+<h2>Monthly Income Budget</h2>
 <table>
     <thead>
         <tr>
@@ -81,23 +81,40 @@
     <tbody>
         {{#each categories}}
             {{#compare label "===" "income"}}
-                <tr>
-                    <td>{{name}}</td>
-                    <td>{{plannedAmount}}</td>
-                    <td>{{actualAmount}}</td>
-                    <td>{{subtract plannedAmount actualAmount}}</td>
-                </tr>
+                {{#compare (add plannedAmount actualAmount) "!==" 0}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td>{{plannedAmount}}</td>
+                        <td>{{actualAmount}}</td>
+                        <td>{{subtract plannedAmount actualAmount}}</td>
+                    </tr>
+                {{/compare}}
             {{/compare}}
        {{/each}}
+    </tbody>
+</table>
 
+<h2>Monthly Expense Budget</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Planned</th>
+            <th>Actual </th>
+            <th>Difference</th>
+        </tr>
+    </thead>
+    <tbody>
        {{#each categories}}
             {{#compare label "===" "expense"}}
-                <tr>
-                    <td>{{name}}</td>
-                    <td>{{plannedAmount}}</td>
-                    <td>{{actualAmount}}</td>
-                    <td>{{subtract plannedAmount actualAmount}}</td>
-                </tr>
+                {{#compare (add plannedAmount actualAmount) "!==" 0}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td>{{plannedAmount}}</td>
+                        <td>{{actualAmount}}</td>
+                        <td>{{subtract plannedAmount actualAmount}}</td>
+                    </tr>
+                {{/compare}}
             {{/compare}}
        {{/each}}
     </tbody>
