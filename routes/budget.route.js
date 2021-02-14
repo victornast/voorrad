@@ -61,12 +61,28 @@ router.get('/month', routeGuard, async (req, res, next) => {
       }
     }
 
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
     res.render('transactions/monthly', {
       title: 'Monthly View',
       incomes,
       expenses,
       categories,
-      budget
+      budget,
+      viewedMonth:
+        String(currentDate.year) + ' / ' + months[currentDate.month - 1]
     });
   } catch (error) {
     next(error);
