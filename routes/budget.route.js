@@ -15,15 +15,20 @@ router.get('/month', routeGuard, async (req, res, next) => {
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1
     };
+    const viewedDate = {
+      year: Number(req.query.year) || currentDate.year,
+      month: Number(req.query.month) || currentDate.month
+    };
+
     const viewedMonth = {
-      start: new Date(currentDate.year, currentDate.month - 1),
-      end: new Date(currentDate.year, currentDate.month),
-      startYear: new Date(currentDate.year - 1, 12),
-      endYear: new Date(currentDate.year, 12)
+      start: new Date(viewedDate.year, viewedDate.month - 1),
+      end: new Date(viewedDate.year, viewedDate.month),
+      startYear: new Date(viewedDate.year - 1, 12),
+      endYear: new Date(viewedDate.year, 12)
     };
 
     const budget = await Budget.findById(id).lean();
-    // fix mongodb error: userid as objects instead of strings
+    // fixes mongodb error: userid as objects instead of strings
     for (let index = 0; index < budget.userId.length; index++) {
       budget.userId[index] = { userId: budget.userId[index] };
     }
@@ -39,6 +44,41 @@ router.get('/month', routeGuard, async (req, res, next) => {
         budget.plannedExpense += categories[index].plannedAmount;
       }
       categories[index].actualAmount = 0;
+    }
+
+    const firstEntry = await Transaction.find({ $or: budget.userId })
+      .sort({ date: 1 })
+      .limit(1)
+      .lean();
+    const firstEntryDate = {
+      year: firstEntry[0].date.getFullYear(),
+      month: firstEntry[0].date.getMonth() + 1
+    };
+    const prevDate = { possible: true };
+    const nextDate = { possible: true };
+    prevDate.month = viewedDate.month - 1;
+    prevDate.year = viewedDate.year;
+    nextDate.month = viewedDate.month + 1;
+    nextDate.year = viewedDate.year;
+    if (prevDate.month === 0) {
+      prevDate.month = 12;
+      prevDate.year--;
+    }
+    if (
+      new Date(prevDate.year, prevDate.month) <
+      new Date(firstEntryDate.year, firstEntryDate.month)
+    ) {
+      prevDate.possible = false;
+    }
+    if (nextDate.month === 13) {
+      nextDate.month = 1;
+      nextDate.year++;
+    }
+    if (
+      new Date(nextDate.year, nextDate.month) >
+      new Date(currentDate.year, currentDate.month)
+    ) {
+      nextDate.possible = false;
     }
 
     const transactions = await Transaction.find({
@@ -119,7 +159,9 @@ router.get('/month', routeGuard, async (req, res, next) => {
       categories,
       budget,
       viewedMonth:
-        String(currentDate.year) + ' / ' + months[currentDate.month - 1]
+        String(viewedDate.year) + ' / ' + months[viewedDate.month - 1],
+      nextDate,
+      prevDate
     });
   } catch (error) {
     next(error);
