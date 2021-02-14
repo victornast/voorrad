@@ -47,24 +47,47 @@ router.get('/month', routeGuard, async (req, res, next) => {
       .populate({ path: 'segments', populate: { path: 'categoryId' } })
       .lean();
 
-    const incomes = [],
-      expenses = [];
+    const incomes = [];
+    const expenses = [];
+    budget.currentBalance = budget.openingBalance;
+    budget.monthIncome = budget.monthExpense = budget.monthStartBalance = 0;
 
     for (const transaction of transactions) {
-      for (const segment of transaction.segments) {
-        if (segment.categoryId.label === 'income') {
-          incomes.push(transaction);
-          categories.find(
-            (category) => category.name === segment.categoryId.name
-          ).actualAmount += segment.amount;
-        } else {
-          expenses.push(transaction);
-          categories.find(
-            (category) => category.name === segment.categoryId.name
-          ).actualAmount += segment.amount;
+      if (
+        (transaction.date > viewedMonth.start) &
+        (transaction.date < viewedMonth.end)
+      ) {
+        for (const [index, segment] of transaction.segments.entries()) {
+          if (segment.categoryId.label === 'income') {
+            if (index === 0) {
+              incomes.push(transaction);
+            }
+            categories.find(
+              (category) => category.name === segment.categoryId.name
+            ).actualAmount += segment.amount;
+            budget.monthIncome += segment.amount;
+          } else {
+            if (index === 0) {
+              expenses.push(transaction);
+            }
+            categories.find(
+              (category) => category.name === segment.categoryId.name
+            ).actualAmount += segment.amount;
+            budget.monthExpense += segment.amount;
+          }
+        }
+      } else if (transaction.date < viewedMonth.start) {
+        for (const segment of transaction.segments) {
+          if (segment.categoryId.label === 'income') {
+            budget.monthStartBalance += segment.amount;
+          } else {
+            budget.monthStartBalance -= segment.amount;
+          }
         }
       }
     }
+    budget.currentBalance +=
+      budget.monthStartBalance + budget.monthIncome - budget.monthExpense;
 
     const months = [
       'Jan',
