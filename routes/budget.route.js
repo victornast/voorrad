@@ -27,8 +27,17 @@ router.get('/month', routeGuard, async (req, res, next) => {
     for (let index = 0; index < budget.userId.length; index++) {
       budget.userId[index] = { userId: budget.userId[index] };
     }
+
+    budget.plannedIncome = budget.plannedExpense = 0;
+
     const categories = await Category.find({ budgetId: id }).lean();
+
     for (let index = 0; index < categories.length; index++) {
+      if (categories[index].label === 'income') {
+        budget.plannedIncome += categories[index].plannedAmount;
+      } else {
+        budget.plannedExpense += categories[index].plannedAmount;
+      }
       categories[index].actualAmount = 0;
     }
 

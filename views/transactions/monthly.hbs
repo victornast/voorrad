@@ -1,11 +1,17 @@
-<h1>{{title}}</h1>
-<h3>{{viewedMonth}}</h3>
+<h2>{{title}}</h1>
+<p>{{viewedMonth}}<p>
+
+<h3>Monthly Balance</h3>
 {{#with budget}}
-<h3>Monthly Starting Balance: {{currency}}{{monthStartBalance}}</h3>
-<h3>Current Balance: {{currency}}{{currentBalance}}</h3>
+<p>Starting Balance: {{currency}}{{monthStartBalance}}</p>
+<p>Current Balance: {{currency}}{{currentBalance}}</p>
+<p>Planned Income: {{currency}}{{plannedIncome}}</p>
+<p>Actual Income: {{currency}}{{monthIncome}}</p>
+<p>Planned Expenses:{{currency}}{{plannedExpense}}</p>
+<p>Actual Expenses: {{currency}}{{monthExpense}}</p>
 {{/with}}
 
-<h2>Monthly Income</h2>
+<h3>Monthly Income</h3>
 <table>
     <thead>
         <tr>
@@ -39,7 +45,7 @@
     </tbody>
 </table>
 
-<h2>Monthly Expenses</h2>
+<h3>Monthly Expenses</h3>
 <table>
     <thead>
         <tr>
@@ -73,7 +79,7 @@
     </tbody>
 </table>
 
-<h2>Monthly Income Budget</h2>
+<h3>Monthly Income Budget</h3>
 <table>
     <thead>
         <tr>
@@ -99,7 +105,7 @@
     </tbody>
 </table>
 
-<h2>Monthly Expense Budget</h2>
+<h3>Monthly Expense Budget</h3>
 <table>
     <thead>
         <tr>
