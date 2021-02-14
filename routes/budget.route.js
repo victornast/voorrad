@@ -25,11 +25,9 @@ router.get('/month', routeGuard, async (req, res, next) => {
     for (let index = 0; index < budget.userId.length; index++) {
       budget.userId[index] = { userId: budget.userId[index] };
     }
-    const categories = await Category.find({ budgetId: id });
+    const categories = await Category.find({ budgetId: id }).lean();
     for (let index = 0; index < categories.length; index++) {
       categories[index].actualAmount = 0;
-      categories[index].difference =
-        categories[index].plannedAmount - categories[index].actualAmount;
     }
 
     const transactions = await Transaction.find({
@@ -51,8 +49,14 @@ router.get('/month', routeGuard, async (req, res, next) => {
       for (const segment of transaction.segments) {
         if (segment.categoryId.label === 'income') {
           incomes.push(transaction);
+          categories.find(
+            (category) => category.name === segment.categoryId.name
+          ).actualAmount += segment.amount;
         } else {
           expenses.push(transaction);
+          categories.find(
+            (category) => category.name === segment.categoryId.name
+          ).actualAmount += segment.amount;
         }
       }
     }
@@ -67,17 +71,6 @@ router.get('/month', routeGuard, async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
-  //.then((results) => {
-  //  for (const category of results) {
-  //    const copyCat = {};
-  //    copyCat.actualAmount = 0;
-  //    copyCat.plannedAmount = category.plannedAmount;
-  //    copyCat.name = category.name;
-  //    copyCat.label = category.label;
-  //    categories.push(copyCat);
-  //  }
-  //})
 });
 
 module.exports = router;

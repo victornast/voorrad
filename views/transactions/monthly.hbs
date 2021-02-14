@@ -65,26 +65,24 @@
     <tbody>
         {{#each categories}}
             {{#compare label "===" "income"}}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{plannedAmount}}</td>
-            <td>{{actualAmount}}</td>
-            <td>{{difference}}</td>
-        </tr>
-       
-    
-        {{/compare}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{plannedAmount}}</td>
+                    <td>{{actualAmount}}</td>
+                    <td>{{subtract plannedAmount actualAmount}}</td>
+                </tr>
+            {{/compare}}
        {{/each}}
 
        {{#each categories}}
             {{#compare label "===" "expense"}}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{plannedAmount}}</td>
-            <td>{{actualAmount}}</td>
-            <td>{{difference}}</td>
-        </tr>
-        {{/compare}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{plannedAmount}}</td>
+                    <td>{{actualAmount}}</td>
+                    <td>{{subtract plannedAmount actualAmount}}</td>
+                </tr>
+            {{/compare}}
        {{/each}}
     </tbody>
 </table>
