@@ -135,31 +135,17 @@ router.get('/month', routeGuard, async (req, res, next) => {
         }
       }
     }
+
     budget.currentBalance +=
       budget.monthStartBalance + budget.monthIncome - budget.monthExpense;
 
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ];
     res.render('transactions/monthly', {
       title: 'Monthly View',
       incomes,
       expenses,
       categories,
       budget,
-      viewedMonth:
-        String(viewedDate.year) + ' / ' + months[viewedDate.month - 1],
+      viewedMonth: String(viewedDate.year) + ' / ' + String(viewedDate.month),
       nextDate,
       prevDate
     });

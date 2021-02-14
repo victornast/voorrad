@@ -3,7 +3,7 @@
     {{#if prevDate.possible}}
         <a href="/budget/month?year={{prevDate.year}}&month={{prevDate.month}}">◀</a>
     {{/if}}
-    {{viewedMonth}}
+    {{date viewedMonth 'YYYY / MMMM'}}
     {{#if nextDate.possible}}
         <a href="/budget/month?year={{nextDate.year}}&month={{nextDate.month}}">▶</a>
     {{/if}}
