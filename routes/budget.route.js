@@ -15,12 +15,13 @@ router.get('/month', routeGuard, async (req, res, next) => {
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1
     };
-    const currentMonth = {
+    const viewedMonth = {
       start: new Date(currentDate.year, currentDate.month - 1),
-      end: new Date(currentDate.year, currentDate.month)
+      end: new Date(currentDate.year, currentDate.month),
+      startYear: new Date(currentDate.year - 1, 12)
     };
 
-    const budget = await Budget.findById(id);
+    const budget = await Budget.findById(id).lean();
     // fix mongodb error: userid as objects instead of strings
     for (let index = 0; index < budget.userId.length; index++) {
       budget.userId[index] = { userId: budget.userId[index] };
@@ -35,8 +36,8 @@ router.get('/month', routeGuard, async (req, res, next) => {
         { $or: budget.userId },
         {
           $and: [
-            { date: { $gt: currentMonth.start } },
-            { date: { $lte: currentMonth.end } }
+            { date: { $gt: viewedMonth.start } },
+            { date: { $lte: viewedMonth.end } }
           ]
         }
       ]
