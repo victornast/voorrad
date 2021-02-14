@@ -20,7 +20,7 @@ router.get('/', routeGuard, (req, res, next) => {
 });
 
 router.get('/add', routeGuard, (req, res) => {
-  res.render('categories/add');
+  res.render('categories/add', { title: 'Add Categories' });
 });
 
 router.post('/add', routeGuard, (req, res, next) => {
@@ -42,7 +42,7 @@ router.get('/edit/:id', routeGuard, (req, res, next) => {
   const id = req.params.id;
   Category.findById(id)
     .then((category) => {
-      res.render('categories/edit', { category });
+      res.render('categories/edit', { category, title: 'Edit Category' });
     })
     .catch((error) => {
       next(error);
@@ -79,7 +79,11 @@ router.get('/delete/:id', routeGuard, (req, res, next) => {
       });
     })
     .then((categories) => {
-      res.render('categories/delete', { transactionSegments, categories });
+      res.render('categories/delete', {
+        transactionSegments,
+        categories,
+        title: 'Delete Category'
+      });
     })
     .catch((error) => {
       next(error);
