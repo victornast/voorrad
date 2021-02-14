@@ -13,15 +13,23 @@
     </thead>
     <tbody>
         {{#each incomes}}
-            <tr>
-                <td>{{{ date date "DD/MM/YYYY" }}}</td>
-                <td>{{transactionSource}}</td>
-                {{#each segments}}
-                    <td>{{../../budget.currency}}{{amount}}</td>
-                    <td>{{#with categoryId}}{{name}}{{/with}}</td>
+            {{#each segments}}
+                    <tr>
+                        {{#if @first}}
+                            <td>{{{ date date "DD/MM/YYYY" }}}</td>
+                            <td>{{../transactionSource}}</td>
+                        {{else}}
+                            <td></td><td></td>
+                        {{/if}}
+                        <td>{{../../budget.currency}}{{amount}}</td>
+                        <td>{{categoryId.name}}</td>
+                        {{#if @first}}
+                            <td>{{notes}}</td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                    </tr>
                 {{/each}}
-                <td>{{notes}}</td>
-            </tr>
         {{/each}}
     </tbody>
 </table>
@@ -39,15 +47,23 @@
     </thead>
     <tbody>
         {{#each expenses}}
-            <tr>
-                <td>{{{ date date "DD/MM/YYYY" }}}</td>
-                <td>{{transactionSource}}</td>
                 {{#each segments}}
-                    <td>{{../../budget.currency}}{{amount}}</td>
-                    <td>{{#with categoryId}}{{name}}{{/with}}</td>
+                    <tr>
+                        {{#if @first}}
+                            <td>{{{ date date "DD/MM/YYYY" }}}</td>
+                            <td>{{../transactionSource}}</td>
+                        {{else}}
+                            <td></td><td></td>
+                        {{/if}}
+                        <td>{{../../budget.currency}}{{amount}}</td>
+                        <td>{{categoryId.name}}</td>
+                        {{#if @first}}
+                            <td>{{notes}}</td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                    </tr>
                 {{/each}}
-                <td>{{notes}}</td>
-            </tr>
         {{/each}}
     </tbody>
 </table>

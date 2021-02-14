@@ -37,15 +37,14 @@ router.post('/sign-up', (req, res, next) => {
     })
     .then((budget) => {
       req.session.budgetId = budget._id;
-      return Default.find();
+      return Default.find().lean();
     })
     .then((defaultCategories) => {
-      const startingCategories = JSON.parse(JSON.stringify(defaultCategories));
-      for (const category of startingCategories) {
+      for (const category of defaultCategories) {
         delete category._id;
         category.budgetId = req.session.budgetId;
       }
-      return Category.create(startingCategories);
+      return Category.create(defaultCategories);
     })
     .then(() => {
       res.redirect('/overview');
