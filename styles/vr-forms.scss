@@ -1,0 +1,29 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input:not([type='checkbox']),
+input:not([type='radio']),
+input:not([type='range']),
+textarea,
+select,
+button,
+.btn {
+  padding: 1em;
+  border: 1px solid $grey;
+  border-radius: 0;
+  margin-bottom: 1em;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+textarea {
+  min-height: 8em;
+  resize: vertical;
+}
+
+label {
+  margin-bottom: 0.5em;
+}

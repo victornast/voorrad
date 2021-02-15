@@ -1,3 +1,5 @@
 node_modules
 dist
 public
+normalize.scss
+styles/lib/normalize.scss

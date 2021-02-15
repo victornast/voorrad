@@ -1,0 +1,17 @@
+// Yearly Summary Tables
+.vr-yearly-summary-table {
+  &__row-head {
+    padding-right: 1em;
+    text-align: left;
+  }
+
+  &__col-head {
+    padding-bottom: 1em;
+    text-align: right;
+  }
+
+  &__cell {
+    padding: 0.2em 0.4em;
+    text-align: right;
+  }
+}

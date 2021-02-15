@@ -1,0 +1,10 @@
+.vr-v-overview {
+  display: flex;
+  flex-direction: column;
+
+  // (1) push buttons to the bottom of the screen
+  &__add-transaction {
+    margin-top: auto; // (1)
+    padding-top: 2em;
+  }
+}

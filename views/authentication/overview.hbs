@@ -1,3 +1,19 @@
-<h2>Overview</h2>
-<p>Welcome, {{user.name}}!</p>
-<p>Current Balance: {{budget.currency}} {{budget.currentBalance}}</p>
+<section class="vr-v-overview">
+
+    <h2 class="vr-v-overview__headline">
+        Overview
+    </h2>
+
+    <p class="vr-v-overview__intro-text">
+        Welcome, {{user.name}}!
+    </p>
+
+    <p class="vr-v-overview__balance">
+        Current Balance: {{budget.currency}} {{budget.currentBalance}}
+    </p>
+
+    <div class="vr-v-overview__add-transaction">
+        {{>addtransaction}}
+    </div>
+
+</section>

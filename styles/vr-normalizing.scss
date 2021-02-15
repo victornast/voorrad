@@ -1,0 +1,34 @@
+* {
+  &,
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  max-width: 52em;
+  padding: 0 1em;
+  margin: 0 auto;
+  line-height: 1.5;
+  font-family: $font-primary;
+  background-color: $color-primary-dark;
+  color: $color-primary-light;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+}
+
+small {
+  font-size: inherit;
+}
+
+p {
+  margin: 0;
+}

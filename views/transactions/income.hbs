@@ -1,26 +1,28 @@
-<h2>Add income</h2>
+<section>
+    <h2>Add income</h2>
 
-<form method="POST">
+    <form method="POST">
 
-    <label for="transaction-date">Date:</label>
-    <input type="date" id="transaction-date" name="date" value={{today}}>
+        <label for="transaction-date">Date:</label>
+        <input type="date" id="transaction-date" name="date" value={{today}}>
 
-    <label for="transaction-source">Sender:</label>    
-    <input type="text" id="transaction-source" name="transactionSource" required >
+        <label for="transaction-source">Sender:</label>    
+        <input type="text" id="transaction-source" name="transactionSource" required >
 
-    <label for="segment-amount">Amount:</label>    
-    <input type="number" id="segment-amount" name="amount" required >
-    
-    <label for="segment-category">Category</label>    
-    <select id="segment-category" name="categoryId" required>
-        {{#each categories}}
-            <option value="{{_id}}" >{{name}}</option>
-        {{/each}}
-    </select>
+        <label for="segment-amount">Amount:</label>    
+        <input type="number" id="segment-amount" name="amount" required >
+        
+        <label for="segment-category">Category</label>    
+        <select id="segment-category" name="categoryId" required>
+            {{#each categories}}
+                <option value="{{_id}}" >{{name}}</option>
+            {{/each}}
+        </select>
 
-    <label for="transaction-notes">Notes</label>
-    <textarea id="transaction-notes" name="notes"></textarea>
-    
-    <button type="sumbit">Add</button>
+        <label for="transaction-notes">Notes</label>
+        <textarea id="transaction-notes" name="notes"></textarea>
+        
+        <button type="sumbit">Add</button>
 
-</form>
+    </form>
+</section>

@@ -1,0 +1,19 @@
+// (1) make the main area occupy full vertical space left between header and footer
+.voorrad {
+  min-height: 100vh;
+  display: grid; // (1)
+  grid-template-rows: auto 1fr auto; // (1)
+
+  &__header {
+  }
+
+  // (2) make child sections take full height
+  &__main {
+    display: grid; // (2)
+  }
+
+  &__footer {
+    padding: 2em 0 1em;
+    text-align: center;
+  }
+}
