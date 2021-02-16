@@ -80,4 +80,15 @@ router.post('/expense', routeGuard, (req, res, next) => {
     .catch((error) => next(error));
 });
 
+router.get('/:id', routeGuard, async (req, res, next) => {
+  const id = req.params.id;
+  console.log(id);
+  try {
+    const transaction = await Transaction.findById(id);
+    console.log(transaction);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

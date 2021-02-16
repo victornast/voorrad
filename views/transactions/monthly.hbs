@@ -39,13 +39,13 @@
                      {{#each segments}}
                             <tr>
                                 {{#if @first}}
-                                    <td><a href="/transaction/{{_id}}">{{{ date ../date "DD/MM/YYYY" }}}</a></td>
-                                    <td><a href="/transaction/{{_id}}">{{../transactionSource}}</a></td>
+                                    <td><a href="/transaction/{{../_id}}">{{{ date ../date "DD/MM/YYYY" }}}</a></td>
+                                    <td><a href="/transaction/{{../_id}}">{{../transactionSource}}</a></td>
                                 {{else}}
                                     <td></td><td></td>
                                 {{/if}}
-                                <td><a href="/transaction/{{_id}}">{{../../budget.currency}}{{amount}}</a></td>
-                                <td><a href="/transaction/{{_id}}">{{categoryId.name}}</a></td>
+                                <td><a href="/transaction/{{../_id}}">{{../../budget.currency}}{{amount}}</a></td>
+                                <td><a href="/transaction/{{../_id}}">{{categoryId.name}}</a></td>
                             </tr>                            
                          {{/each}}
                  {{/each}}
@@ -67,13 +67,13 @@
                          {{#each segments}}
                              <tr>
                                  {{#if @first}}
-                                     <td><a href="/transaction/{{_id}}">{{{ date ../date "DD/MM/YYYY" }}}</a></td>
-                                     <td><a href="/transaction/{{_id}}">{{../transactionSource}}</a></td>
+                                     <td><a href="/transaction/{{../_id}}">{{{ date ../date "DD/MM/YYYY" }}}</a></td>
+                                     <td><a href="/transaction/{{../_id}}">{{../transactionSource}}</a></td>
                                  {{else}}
                                      <td></td><td></td>
                                  {{/if}}
-                                 <td><a href="/transaction/{{_id}}">{{../../budget.currency}}{{amount}}</a></td>
-                                 <td><a href="/transaction/{{_id}}">{{categoryId.name}}</a></td>
+                                 <td><a href="/transaction/{{../_id}}">{{../../budget.currency}}{{amount}}</a></td>
+                                 <td><a href="/transaction/{{../_id}}">{{categoryId.name}}</a></td>
                              </tr>
                          {{/each}}
                  {{/each}}
