@@ -1,142 +1,154 @@
-<section>
-    <h2>{{title}}</h2>
-    <p>
-        {{#if prevDate.possible}}
+<section class="main">
+ <div class="prv-nxt-month">
+     <h2>{{title}}</h2>
+     <p>
+         {{#if prevDate.possible}}
             <a href="/budget/month?year={{prevDate.year}}&month={{prevDate.month}}">◀</a>
-        {{/if}}
-        {{date viewedMonth 'YYYY / MMMM'}}
-        {{#if nextDate.possible}}
+         {{/if}}
+         {{date viewedMonth 'YYYY / MMMM'}}
+         {{#if nextDate.possible}}
             <a href="/budget/month?year={{nextDate.year}}&month={{nextDate.month}}">▶</a>
-        {{/if}}
-    </p>
-
-    <h3>Monthly Balance</h3>
-    {{#with budget}}
-    <p>Starting Balance: {{currency}}{{monthStartBalance}}</p>
-    <p>Current Balance: {{currency}}{{currentBalance}}</p>
-    <p>Planned Income: {{currency}}{{plannedIncome}}</p>
-    <p>Actual Income: {{currency}}{{monthIncome}}</p>
-    <p>Planned Expenses:{{currency}}{{plannedExpense}}</p>
-    <p>Actual Expenses: {{currency}}{{monthExpense}}</p>
-    {{/with}}
-
-    <h3>Monthly Income</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Sender</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Notes</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each incomes}}
-                {{#each segments}}
-                        <tr>
-                            {{#if @first}}
-                                <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
-                                <td>{{../transactionSource}}</td>
-                            {{else}}
-                                <td></td><td></td>
-                            {{/if}}
-                            <td>{{../../budget.currency}}{{amount}}</td>
-                            <td>{{categoryId.name}}</td>
-                            {{#if @first}}
-                                <td>{{notes}}</td>
-                            {{else}}
-                                <td></td>
-                            {{/if}}
-                        </tr>
-                    {{/each}}
-            {{/each}}
-        </tbody>
-    </table>
-
-    <h3>Monthly Expenses</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Recipient</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Notes</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each expenses}}
-                    {{#each segments}}
-                        <tr>
-                            {{#if @first}}
-                                <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
-                                <td>{{../transactionSource}}</td>
-                            {{else}}
-                                <td></td><td></td>
-                            {{/if}}
-                            <td>{{../../budget.currency}}{{amount}}</td>
-                            <td>{{categoryId.name}}</td>
-                            {{#if @first}}
-                                <td>{{notes}}</td>
-                            {{else}}
-                                <td></td>
-                            {{/if}}
-                        </tr>
-                    {{/each}}
-            {{/each}}
-        </tbody>
-    </table>
-
-    <h3>Monthly Income Budget</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Planned</th>
-                <th>Actual </th>
-                <th>Difference</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each categories}}
-                {{#compare label "===" "income"}}
-                    {{#compare (add plannedAmount actualAmount) "!==" 0}}
-                        <tr>
-                            <td>{{name}}</td>
-                            <td>{{plannedAmount}}</td>
-                            <td>{{actualAmount}}</td>
-                            <td>{{subtract plannedAmount actualAmount}}</td>
-                        </tr>
-                    {{/compare}}
-                {{/compare}}
-        {{/each}}
-        </tbody>
-    </table>
-
-    <h3>Monthly Expense Budget</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Planned</th>
-                <th>Actual </th>
-                <th>Difference</th>
-            </tr>
-        </thead>
-        <tbody>
-        {{#each categories}}
-                {{#compare label "===" "expense"}}
-                    {{#compare (add plannedAmount actualAmount) "!==" 0}}
-                        <tr>
-                            <td>{{name}}</td>
-                            <td>{{plannedAmount}}</td>
-                            <td>{{actualAmount}}</td>
-                            <td>{{subtract plannedAmount actualAmount}}</td>
-                        </tr>
-                    {{/compare}}
-                {{/compare}}
-        {{/each}}
-        </tbody>
-    </table>
+         {{/if}}
+     </p>
+     <div class="month-blnc">
+         <h3>Monthly Balance</h3>
+         {{#with budget}}
+         <p>Starting Balance: {{currency}} <span class="vr-amounts">{{monthStartBalance}}</span></p>
+         <p>Current Balance: {{currency}} <span class="vr-amounts">{{currentBalance}}</span></p>
+         <p>Planned Income: {{currency}} <span class="vr-amounts">{{plannedIncome}}</span></p>
+         <p>Actual Income: {{currency}} <span class="vr-amounts">{{monthIncome}}</span></p>
+         <p>Planned Expenses:{{currency}} <span class="vr-amounts">{{plannedExpense}}</span></p>
+         <p>Actual Expenses: {{currency}} <span class="vr-amounts">{{monthExpense}}</span></p>
+         {{/with}}
+     </div>
+ </div>
+ <div class="wrapper">
+     <div class="month-inc">
+         <h3>Monthly Income</h3>
+         <table class="table-month">
+             <thead>
+                 <tr>
+                     <th>Date</th>
+                     <th>Sender</th>
+                     <th>Amount</th>
+                     <th>Category</th>
+                     <th>Notes</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 {{#each incomes}}
+                     {{#each segments}}
+                             <tr>
+                                 {{#if @first}}
+                                     <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
+                                     <td>{{../transactionSource}}</td>
+                                 {{else}}
+                                     <td></td><td></td>
+                                 {{/if}}
+                                 <td>{{../../budget.currency}}{{amount}}</td>
+                                 <td>{{categoryId.name}}</td>
+                                 {{#if @first}}
+                                     <td>{{notes}}</td>
+                                 {{else}}
+                                     <td></td>
+                                 {{/if}}
+                             </tr>
+                         {{/each}}
+                 {{/each}}
+             </tbody>
+         </table>
+     </div>
+     <div>
+         <h3>Monthly Expenses</h3>
+         <table class="table-month">
+             <tr>
+                 <th>Date</th>
+                 <th>Recipient</th>
+                 <th>Amount</th>
+                 <th>Category</th>
+                 <th>Notes</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 {{#each expenses}}
+                         {{#each segments}}
+                             <tr>
+                                 {{#if @first}}
+                                     <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
+                                     <td>{{../transactionSource}}</td>
+                                 {{else}}
+                                     <td></td><td></td>
+                                 {{/if}}
+                                 <td>{{../../budget.currency}}{{amount}}</td>
+                                 <td>{{categoryId.name}}</td>
+                                 {{#if @first}}
+                                     <td>{{notes}}</td>
+                                 {{else}}
+                                     <td></td>
+                                 {{/if}}
+                             </tr>
+                         {{/each}}
+                 {{/each}}
+             </tbody>
+        </table>
+     </div>
+     <div>
+         <h3>Monthly Income Budget</h3>
+         <table class="table-month">
+             <thead>
+                 <tr>
+                     <th>Category</th>
+                     <th>Planned</th>
+                     <th>Actual </th>
+                     <th>Difference</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 {{#each categories}}
+                     {{#compare label "===" "income"}}
+                         {{#compare (add plannedAmount actualAmount) "!==" 0}}
+                             <tr>
+                                 <td>{{name}}</td>
+                                 <td>{{plannedAmount}}</td>
+                                 <td>{{actualAmount}}</td>
+                                 <td>{{subtract plannedAmount actualAmount}}</td>
+                             </tr>
+                         {{/compare}}
+                     {{/compare}}
+             {{/each}}
+             </tbody>
+         </table>
+     </div>
+     <div>
+         <h3>Monthly Expense Budget</h3>
+         <table class="table-month">
+             <thead>
+                 <tr>
+                     <th>Category</th>
+                     <th>Planned</th>
+                     <th>Actual </th>
+                     <th>Difference</th>
+                 </tr>
+             </thead>
+             <tbody>
+             {{#each categories}}
+                     {{#compare label "===" "expense"}}
+                         {{#compare (add plannedAmount actualAmount) "!==" 0}}
+                             <tr>
+                                 <td>{{name}}</td>
+                                 <td>{{plannedAmount}}</td>
+                                 <td>{{actualAmount}}</td>
+                                 <td>{{subtract plannedAmount actualAmount}}</td>
+                             </tr>
+                         {{/compare}}
+                     {{/compare}}
+             {{/each}}
+             </tbody>
+         </table>
+     </div>
+ </div>
 </section>
+
+<div class="vr-v-overview__add-transaction">
+        {{>addtransaction}}
+</div>
