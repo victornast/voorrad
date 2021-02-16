@@ -1,3 +1,4 @@
+
 <section class="main">
  <div class="prv-nxt-month">
      <h2>{{title}}</h2>
@@ -13,12 +14,12 @@
      <div class="month-blnc">
          <h3>Monthly Balance</h3>
          {{#with budget}}
-         <p>Starting Balance: <span class="vr-amounts"> {{currency}}  {{monthStartBalance}}</span></p>
-         <p>Current Balance: <span class="vr-amounts"> {{currency}}  {{currentBalance}}</span></p>
-         <p>Planned Income: <span class="vr-amounts"> {{currency}}  {{plannedIncome}}</span></p>
-         <p>Actual Income: <span class="vr-amounts"> {{currency}}  {{monthIncome}}</span></p>
-         <p>Planned Expenses:<span class="vr-amounts"> {{currency}}  {{plannedExpense}}</span></p>
-         <p>Actual Expenses: <span class="vr-amounts"> {{currency}}  {{monthExpense}}</span></p>
+         <p>Starting Balance: <span class="vr-amounts"> {{currency}}{{monthStartBalance}}</span></p>
+         <p>Current Balance: <span class="vr-amounts"> {{currency}}{{currentBalance}}</span></p>
+         <p>Planned Income: <span class="vr-amounts"> {{currency}}{{plannedIncome}}</span></p>
+         <p>Actual Income: <span class="vr-amounts"> {{currency}}{{monthIncome}}</span></p>
+         <p>Planned Expenses:<span class="vr-amounts"> {{currency}}{{plannedExpense}}</span></p>
+         <p>Actual Expenses: <span class="vr-amounts"> {{currency}}{{monthExpense}}</span></p>
          {{/with}}
      </div>
  </div>
@@ -149,6 +150,6 @@
  </div>
 </section>
 
-<div class="vr-v-overview__add-transaction">
+     <div class="vr-v-overview__add-transaction">
         {{>addtransaction}}
-</div>
+     </div>
