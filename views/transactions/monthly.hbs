@@ -38,21 +38,16 @@
              <tbody>
                  {{#each incomes}}
                      {{#each segments}}
-                             <tr>
-                                 {{#if @first}}
-                                     <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
-                                     <td>{{../transactionSource}}</td>
-                                 {{else}}
-                                     <td></td><td></td>
-                                 {{/if}}
-                                 <td>{{../../budget.currency}}{{amount}}</td>
-                                 <td>{{categoryId.name}}</td>
-                                 {{#if @first}}
-                                     <td>{{notes}}</td>
-                                 {{else}}
-                                     <td></td>
-                                 {{/if}}
-                             </tr>
+                            <tr>
+                                {{#if @first}}
+                                    <td><a href="/transaction/{{_id}}">{{{ date ../date "DD/MM/YYYY" }}}</a></td>
+                                    <td><a href="/transaction/{{_id}}">{{../transactionSource}}</a></td>
+                                {{else}}
+                                    <td></td><td></td>
+                                {{/if}}
+                                <td><a href="/transaction/{{_id}}">{{../../budget.currency}}{{amount}}</a></td>
+                                <td><a href="/transaction/{{_id}}">{{categoryId.name}}</a></td>
+                            </tr>                            
                          {{/each}}
                  {{/each}}
              </tbody>
@@ -74,18 +69,13 @@
                          {{#each segments}}
                              <tr>
                                  {{#if @first}}
-                                     <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
-                                     <td>{{../transactionSource}}</td>
+                                     <td><a href="/transaction/{{_id}}">{{{ date ../date "DD/MM/YYYY" }}}</a></td>
+                                     <td><a href="/transaction/{{_id}}">{{../transactionSource}}</a></td>
                                  {{else}}
                                      <td></td><td></td>
                                  {{/if}}
-                                 <td>{{../../budget.currency}}{{amount}}</td>
-                                 <td>{{categoryId.name}}</td>
-                                 {{#if @first}}
-                                     <td>{{notes}}</td>
-                                 {{else}}
-                                     <td></td>
-                                 {{/if}}
+                                 <td><a href="/transaction/{{_id}}">{{../../budget.currency}}{{amount}}</a></td>
+                                 <td><a href="/transaction/{{_id}}">{{categoryId.name}}</a></td>
                              </tr>
                          {{/each}}
                  {{/each}}
