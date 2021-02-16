@@ -4,6 +4,7 @@ const express = require('express');
 const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
 
+const Budget = require('./../models/budget.model');
 const Category = require('./../models/categories.model');
 const Transaction = require('./../models/transactions.model');
 const Segment = require('../models/segment.model');
@@ -82,10 +83,17 @@ router.post('/expense', routeGuard, (req, res, next) => {
 
 router.get('/:id', routeGuard, async (req, res, next) => {
   const id = req.params.id;
-  console.log(id);
   try {
-    const transaction = await Transaction.findById(id);
-    console.log(transaction);
+    const budget = await Budget.findById(req.user.budgetId).lean();
+    const transaction = await Transaction.findById(id).populate({
+      path: 'segments',
+      populate: { path: 'categoryId' }
+    });
+    res.render('transactions/details', {
+      title: 'Transaction Details',
+      transaction,
+      budget
+    });
   } catch (error) {
     next(error);
   }

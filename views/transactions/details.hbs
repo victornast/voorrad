@@ -1,0 +1,36 @@
+<h2>Transaction Details</h2>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Amount</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+         {{#with transaction}}
+            {{#each segments}}
+                <tr>
+                    {{#if @first}}
+                        <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
+                        <td>{{../transactionSource}}</td>
+                    {{else}}
+                        <td></td><td></td>
+                    {{/if}}
+                    <td>{{../../budget.currency}}{{amount}}</td>
+                    <td>{{categoryId.name}}</td>
+                </tr>                            
+            {{/each}}  
+          {{/with}}      
+    </tbody>
+</table>
+
+<p>Notes: {{transaction.notes}}</p>
+
+<div>
+    <a class="vr-button vr-button--secondary" href="/transaction/{{transaction._id}}/edit">Edit</a>
+    <a class="vr-button vr-button--primary" href="/transaction/{{transaction._id}}/delete">Delete</a>
+</div>
