@@ -109,9 +109,9 @@
                          {{#compare (add plannedAmount actualAmount) "!==" 0}}
                              <tr>
                                  <td>{{name}}</td>
-                                 <td>{{plannedAmount}}</td>
-                                 <td>{{actualAmount}}</td>
-                                 <td>{{subtract plannedAmount actualAmount}}</td>
+                                 <td> {{../budget.currency}} {{plannedAmount}}</td>
+                                 <td>  {{../budget.currency}} {{actualAmount}}</td>
+                                 <td> {{../budget.currency}} {{subtract plannedAmount actualAmount}}</td>
                              </tr>
                          {{/compare}}
                      {{/compare}}
@@ -136,9 +136,9 @@
                          {{#compare (add plannedAmount actualAmount) "!==" 0}}
                              <tr>
                                  <td>{{name}}</td>
-                                 <td>{{plannedAmount}}</td>
-                                 <td>{{actualAmount}}</td>
-                                 <td>{{subtract plannedAmount actualAmount}}</td>
+                                 <td>  {{../budget.currency}} {{plannedAmount}}</td>
+                                 <td>  {{../budget.currency}} {{actualAmount}}</td>
+                                 <td>  {{../budget.currency}} {{subtract plannedAmount actualAmount}}</td>
                              </tr>
                          {{/compare}}
                      {{/compare}}
