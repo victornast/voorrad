@@ -174,7 +174,7 @@ router.get('/year', routeGuard, async (req, res, next) => {
       value: budget.openingBalance
     }));
     budget.monthlySavings = Array.from({ length: 12 }, (_, i) => ({
-      month: i + 1,
+      month: `2020 / ${i + 1}`,
       value: 0
     }));
     const currentYear = new Date().getFullYear();
@@ -203,9 +203,20 @@ router.get('/year', routeGuard, async (req, res, next) => {
       budgetId: req.user.budgetId
     }).lean();
 
+    for (const category of categories) {
+      category.actualAmount = Array.from({ length: 12 }, (_, i) => ({
+        month: i + 1,
+        value: 0
+      }));
+    }
+
     for (const transaction of transactions) {
       const transactionMonth = transaction.date.getMonth();
       for (const segment of transaction.segments) {
+        const segmentCategory = segment.categoryId.name;
+        categories.find(
+          (category) => category.name === segmentCategory
+        ).actualAmount[transactionMonth].value += segment.amount;
         if (segment.categoryId.label === 'income') {
           budget.monthlyIncome[transactionMonth].value += segment.amount;
           budget.currentBalance += segment.amount;
@@ -231,6 +242,9 @@ router.get('/year', routeGuard, async (req, res, next) => {
         remainingMonths < 12;
         remainingMonths++
       ) {
+        for (const category of categories) {
+          category.actualAmount[remainingMonths].value = category.plannedAmount;
+        }
         budget.monthlyExpense[remainingMonths].value += plannedExpense;
         budget.monthlyIncome[remainingMonths].value += plannedIncome;
       }
@@ -249,7 +263,11 @@ router.get('/year', routeGuard, async (req, res, next) => {
       }
     }
 
-    res.render('transactions/yearly', { title: 'Yearly View', budget });
+    res.render('transactions/yearly', {
+      title: 'Yearly View',
+      budget,
+      categories
+    });
   } catch (error) {
     next(error);
   }

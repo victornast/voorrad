@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th class="vr-yearly-summary-table__col-head"></th>
-                {{#each budget.monthlyIncome}}
+                {{#each budget.monthlySavings}}
                     <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
                 {{/each}}
             </tr>
@@ -37,6 +37,54 @@
                     <td class="vr-yearly-summary-table__cell">{{value}}</td>
                 {{/each}}
             </tr>
+        </tbody>
+    </table>
+
+    <h3>Income</h3>
+    <table class="vr-yearly-summary-table">
+        <thead>
+            <tr>
+                <th class="vr-yearly-summary-table__col-head"></th>
+                {{#each budget.monthlySavings}}
+                    <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
+                {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each categories}}
+                {{#compare label "===" "income"}}
+                    <tr>
+                        <th class="vr-yearly-summary-table__row-head">{{name}}</th>
+                        {{#each actualAmount}}
+                            <td class="vr-yearly-summary-table__cell">{{value}}</td>
+                        {{/each}}
+                    </tr>
+                {{/compare}}
+            {{/each}}
+        </tbody>
+    </table>
+
+    <h3>Expense</h3>
+    <table class="vr-yearly-summary-table">
+        <thead>
+            <tr>
+                <th class="vr-yearly-summary-table__col-head"></th>
+                {{#each budget.monthlySavings}}
+                    <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
+                {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each categories}}
+                {{#compare label "===" "expense"}}
+                    <tr>
+                        <th class="vr-yearly-summary-table__row-head">{{name}}</th>
+                        {{#each actualAmount}}
+                            <td class="vr-yearly-summary-table__cell">{{value}}</td>
+                        {{/each}}
+                    </tr>
+                {{/compare}}
+            {{/each}}
         </tbody>
     </table>
 </section>
