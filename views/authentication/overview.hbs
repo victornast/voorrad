@@ -1,19 +1,22 @@
 <section class="vr-v-overview">
+       <h2 class="vr-v-overview__headline">
+          Overview
+       </h2>
 
-    <h2 class="vr-v-overview__headline">
-        Overview
-    </h2>
+     <div class="vr-overview-wrapper">
+          <p class="vr-v-overview__intro-text vr-intro">
+            Welcome to Voorrad <strong>{{user.name}}</strong>!
+       
+          </p>
+          <p class="vr-v-overview__intro-text vr-intro">
+             You can go straight to the Categories page to manage your categories, or you can start adding expenses/incomes
+          </p>
 
-    <p class="vr-v-overview__intro-text">
-        Welcome, {{user.name}}!
-    </p>
-
-    <p class="vr-v-overview__balance">
-        Current Balance: {{budget.currency}} {{budget.currentBalance}}
-    </p>
-
-    <div class="vr-v-overview__add-transaction">
-        {{>addtransaction}}
-    </div>
-
+          <h4 class="vr-v-overview__balance">
+             Current Balance: {{budget.currency}} {{budget.currentBalance}}
+          </h4>
+     </div>
+     <div class="vr-v-overview__add-transaction">
+         {{>addtransaction}}
+     </div>
 </section>
