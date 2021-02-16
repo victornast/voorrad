@@ -13,12 +13,12 @@
      <div class="month-blnc">
          <h3>Monthly Balance</h3>
          {{#with budget}}
-         <p>Starting Balance: {{currency}} <span class="vr-amounts">{{monthStartBalance}}</span></p>
-         <p>Current Balance: {{currency}} <span class="vr-amounts">{{currentBalance}}</span></p>
-         <p>Planned Income: {{currency}} <span class="vr-amounts">{{plannedIncome}}</span></p>
-         <p>Actual Income: {{currency}} <span class="vr-amounts">{{monthIncome}}</span></p>
-         <p>Planned Expenses:{{currency}} <span class="vr-amounts">{{plannedExpense}}</span></p>
-         <p>Actual Expenses: {{currency}} <span class="vr-amounts">{{monthExpense}}</span></p>
+         <p>Starting Balance: <span class="vr-amounts"> {{currency}}  {{monthStartBalance}}</span></p>
+         <p>Current Balance: <span class="vr-amounts"> {{currency}}  {{currentBalance}}</span></p>
+         <p>Planned Income: <span class="vr-amounts"> {{currency}}  {{plannedIncome}}</span></p>
+         <p>Actual Income: <span class="vr-amounts"> {{currency}}  {{monthIncome}}</span></p>
+         <p>Planned Expenses:<span class="vr-amounts"> {{currency}}  {{plannedExpense}}</span></p>
+         <p>Actual Expenses: <span class="vr-amounts"> {{currency}}  {{monthExpense}}</span></p>
          {{/with}}
      </div>
  </div>
@@ -99,9 +99,9 @@
                          {{#compare (add plannedAmount actualAmount) "!==" 0}}
                              <tr>
                                  <td>{{name}}</td>
-                                 <td>{{plannedAmount}}</td>
-                                 <td>{{actualAmount}}</td>
-                                 <td>{{subtract plannedAmount actualAmount}}</td>
+                                 <td> {{../budget.currency}} {{plannedAmount}}</td>
+                                 <td>  {{../budget.currency}} {{actualAmount}}</td>
+                                 <td> {{../budget.currency}} {{subtract plannedAmount actualAmount}}</td>
                              </tr>
                          {{/compare}}
                      {{/compare}}
@@ -126,9 +126,9 @@
                          {{#compare (add plannedAmount actualAmount) "!==" 0}}
                              <tr>
                                  <td>{{name}}</td>
-                                 <td>{{plannedAmount}}</td>
-                                 <td>{{actualAmount}}</td>
-                                 <td>{{subtract plannedAmount actualAmount}}</td>
+                                 <td>  {{../budget.currency}} {{plannedAmount}}</td>
+                                 <td>  {{../budget.currency}} {{actualAmount}}</td>
+                                 <td>  {{../budget.currency}} {{subtract plannedAmount actualAmount}}</td>
                              </tr>
                          {{/compare}}
                      {{/compare}}
