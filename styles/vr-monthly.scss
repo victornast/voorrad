@@ -1,0 +1,35 @@
+* {
+  text-align: left;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  //   margin-left: 6em;
+}
+
+.month-blnc {
+  flex-direction: column;
+  text-align: left;
+}
+.main div {
+  padding: 1em 0 1em 0;
+}
+
+.table-month {
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+.table-month td {
+  width: 7em;
+  text-align: left;
+  padding: 1px;
+}
+.vr-amounts {
+  color: #1f7adf;
+}
