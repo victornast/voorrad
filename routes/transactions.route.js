@@ -99,4 +99,38 @@ router.get('/:id', routeGuard, async (req, res, next) => {
   }
 });
 
+router.get('/:id/delete', routeGuard, async (req, res, next) => {
+  try {
+    res.render('transactions/delete', {
+      title: 'Delete Transaction'
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/:id/delete', routeGuard, async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const transaction = await Transaction.findById(id).populate({
+      path: 'segments'
+    });
+
+    for (const segment of transaction.segments) {
+      const deletedSegment = await Segment.findByIdAndDelete(segment._id);
+      console.log(deletedSegment);
+    }
+
+    const deletedTransaction = await Transaction.findByIdAndDelete(
+      transaction._id
+    );
+
+    console.log(deletedTransaction);
+
+    res.redirect('/budget/month');
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
