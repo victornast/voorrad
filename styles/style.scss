@@ -17,13 +17,12 @@
 @import 'vr-tables';
 @import 'vr-header';
 @import 'vr-add-transaction';
+@import 'vr-pie-chart';
 
 // Views
 @import 'vr-v-voorrad';
 @import 'vr-v-overview';
+@import 'vr-v-monthly';
 
 // Utilities
 @import 'utilities';
-
-// Month view styles
-@import 'vr-v-monthly.scss';

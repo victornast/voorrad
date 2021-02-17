@@ -263,10 +263,29 @@ router.get('/year', routeGuard, async (req, res, next) => {
       }
     }
 
+    const totalYearlyExpense = budget.monthlyExpense.reduce((acc, val) => {
+      return { value: acc.value + val.value };
+    });
+    const expenseSummary = { names: [], yearlyValues: [] };
+    for (const category of categories) {
+      if (category.label === 'expense') {
+        const categoryYearlyExpense = category.actualAmount.reduce(
+          (prev, current) => {
+            return { value: prev.value + current.value, month: 0 };
+          }
+        );
+        if (categoryYearlyExpense.value > 0.1 * totalYearlyExpense.value) {
+          expenseSummary.names.push(category.name);
+          expenseSummary.yearlyValues.push(categoryYearlyExpense.value);
+        }
+      }
+    }
+
     res.render('transactions/yearly', {
       title: 'Yearly View',
       budget,
-      categories
+      categories,
+      expenseSummary
     });
   } catch (error) {
     next(error);

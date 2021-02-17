@@ -1,0 +1,28 @@
+// Yearly Expense Summary Pie Chart
+.vr-yearly-expense-summary-chart {
+  width: 100%;
+  height: 30em;
+}
+
+path {
+  stroke: $color-primary-dark;
+  cursor: pointer;
+  transition: fill 250ms;
+
+  &:hover {
+    stroke-width: 20px;
+    fill: &color-primary-light;
+  }
+}
+
+text {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+polyline {
+  fill: none;
+  stroke: $color-primary-light;
+  stroke-width: 1;
+}
