@@ -152,22 +152,21 @@ router.get('/:id/edit', routeGuard, async (req, res, next) => {
 router.post('/:id/edit', routeGuard, async (req, res, next) => {
   const id = req.params.id;
   const data = req.body;
+  console.log(data);
   try {
-    const transaction = await Transaction.findByIdAndUpdate(id, {
-      date: data.date,
-      transactionSource: data.transactionSource,
-      notes: data.notes
-    }).populate({
-      path: 'segments'
-    });
-    console.log(data);
-    for (const segment of transaction.segments) {
-      await Segment.findByIdAndUpdate(segment._id, {
-        amount: data.amount,
-        categoryId: data.categoryId
-      });
-    }
-
+    // const transaction = await Transaction.findByIdAndUpdate(id, {
+    //   date: data.date,
+    //   transactionSource: data.transactionSource,
+    //   notes: data.notes
+    // }).populate({
+    //   path: 'segments'
+    // });
+    // for (const [index, segment] of transaction.segments.entries()) {
+    //   await Segment.findByIdAndUpdate(segment._id, {
+    //     amount: data.amount[index],
+    //     categoryId: data.categoryId[index]
+    //   });
+    // }
     res.redirect('/budget/month');
   } catch (error) {
     next(error);
