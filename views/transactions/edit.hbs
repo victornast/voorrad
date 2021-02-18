@@ -9,8 +9,9 @@
         <label for="transaction-source">Sender:</label>    
         <input type="text" id="transaction-source" name="transactionSource" required value="{{transactionSource}}">
         <div id="segment-group">
+           
             {{#each segments}}
-                <div>
+                <div data-segment='main'>
                     <label for="segment-amount">Amount:</label>    
                     <input type="number" id="segment-amount" name="amount" required value={{amount}}>
                     
@@ -21,8 +22,14 @@
                         {{/each}}
                     </select>
                 </div>
+              
             {{/each}}
+
         </div>
+        
+          <div>
+            <button type="button" id="split-button">Split transaction</button>
+         </div>
         <label for="transaction-notes">Notes</label>
         <textarea id="transaction-notes" name="notes">{{notes}}</textarea>
         {{/with}}
