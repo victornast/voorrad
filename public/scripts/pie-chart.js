@@ -1,3 +1,5 @@
+// Original concept by Siddhart Parmar | Crazy Pie Chart | https://codepen.io/Siddharth11/pen/LVQmjN
+
 const getPieChartData = document.querySelector('[data-pie-chart-expenses]');
 const expenses = getPieChartData.dataset.pieChartExpenses.split(',');
 const categories = getPieChartData.dataset.pieChartCategoryName.split(',');
