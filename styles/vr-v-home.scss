@@ -1,13 +1,45 @@
 .vr-intro-wrapper {
-  display: flex;
-  max-width: 19em;
+  margin-top: 6em;
+  text-align: center;
+  h4 {
+    font-size: 3em;
+  }
 }
 .vr-intro {
-  flex: 1;
+  padding-top: 2em;
+  margin-top: 2em;
+  font-size: 1.5em;
+  font-weight: 300;
 }
 
 .vr-buttons-wrapper {
   display: flex;
   flex-direction: column;
   width: 22em;
+}
+
+.vr-v-overview-sign {
+  display: flex;
+  flex-direction: column;
+}
+
+.vr-signin-up {
+  display: flex;
+  justify-content: center;
+  &__action {
+    display: block;
+
+    @media (min-width: 37.5em) {
+      display: inline-block;
+    }
+
+    &:not(:first-child) {
+      margin-top: 1.5rem;
+
+      @media (min-width: 37.5em) {
+        margin-top: 0;
+        margin-left: 1.5rem;
+      }
+    }
+  }
 }
