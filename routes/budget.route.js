@@ -274,7 +274,7 @@ router.get('/year', routeGuard, async (req, res, next) => {
             return { value: prev.value + current.value, month: 0 };
           }
         );
-        if (categoryYearlyExpense.value > 0.025 * totalYearlyExpense.value) {
+        if (categoryYearlyExpense.value > 0.03 * totalYearlyExpense.value) {
           expenseSummary.names.push(category.name);
           expenseSummary.yearlyValues.push(categoryYearlyExpense.value);
         }

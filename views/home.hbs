@@ -1,13 +1,30 @@
+{{#if user}}
+<div class="vr-intro-wrapper">
+       <h4>Get your financial life together!</h4>
+</div>
+
+     <div class="vr-overview-wrapper">
+          <p class="vr-v-overview__intro-text vr-intro">
+             You can go straight to the <a href="/categories">Categories</a> page to manage your categories, or you can start adding expenses/incomes.
+          </p>
+
+     </div>
+     <div class="vr-v-overview__add-transaction">
+         {{>addtransaction}}
+     </div>
+</section>
+{{else}}
 <div class="vr-intro-wrapper">
        <h4>Get your financial life together!</h4>
   <div class="vr-intro">
-       <p>Welcome to {{title}}, navigate to the buttons below to sign in or sign up.</p>
+       <p>Welcome to {{title}}, sign-in to proceed or sign-up to get started.</p>
   </div>
 </div>
 
 <div class="vr-v-overview-sign">
     <div class="vr-signin-up">       
-        <a class="vr-signin-up__action vr-button" href="/authentication/sign-in">Sign In</a>
         <a class="vr-signin-up__action vr-button" href="/authentication/sign-up">Sign Up</a>
+        <a class="vr-signin-up__action vr-button" href="/authentication/sign-in">Sign In</a>
     </div>    
 </div>
+{{/if}}
