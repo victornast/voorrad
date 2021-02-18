@@ -50,6 +50,7 @@ router.get('/month', routeGuard, async (req, res, next) => {
       .sort({ date: 1 })
       .limit(1)
       .lean();
+    if (firstEntry.length === 0) firstEntry.push({ date: new Date() });
     const firstEntryDate = {
       year: firstEntry[0].date.getFullYear(),
       month: firstEntry[0].date.getMonth() + 1
@@ -103,7 +104,7 @@ router.get('/month', routeGuard, async (req, res, next) => {
 
     for (const transaction of transactions) {
       if (
-        (transaction.date > viewedMonth.start) &
+        (transaction.date >= viewedMonth.start) &
         (transaction.date < viewedMonth.end)
       ) {
         for (const [index, segment] of transaction.segments.entries()) {
@@ -138,7 +139,6 @@ router.get('/month', routeGuard, async (req, res, next) => {
 
     budget.currentBalance +=
       budget.monthStartBalance + budget.monthIncome - budget.monthExpense;
-
     res.render('transactions/monthly', {
       title: 'Monthly View',
       incomes,
