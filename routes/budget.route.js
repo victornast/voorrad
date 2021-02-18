@@ -99,8 +99,8 @@ router.get('/month', routeGuard, async (req, res, next) => {
 
     const incomes = [];
     const expenses = [];
-    budget.currentBalance = budget.openingBalance;
-    budget.monthIncome = budget.monthExpense = budget.monthStartBalance = 0;
+    budget.monthStartBalance = budget.openingBalance;
+    budget.monthIncome = budget.monthExpense = budget.currentBalance = 0;
 
     for (const transaction of transactions) {
       if (
