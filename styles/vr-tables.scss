@@ -3,11 +3,23 @@
   &__row-head {
     padding-right: 1em;
     text-align: left;
+    white-space: nowrap;
+    position: sticky;
+    left: 0;
+    background-color: $color-primary-dark;
+    z-index: 1;
   }
 
   &__col-head {
     padding-bottom: 1em;
     text-align: right;
+
+    &:first-child {
+      position: sticky;
+      left: 0;
+      background-color: $color-primary-dark;
+      z-index: 1;
+    }
   }
 
   &__cell {

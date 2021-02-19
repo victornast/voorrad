@@ -1,98 +1,112 @@
-<section>
-    <h2>{{title}}</h2>
-    <p>{{user.name}}'s Current Balance: {{budget.currency}}{{budget.currentBalance}}</p>
+<section class="vr-yearly-summary">
+    <h2 class="vr-yearly-summary__headline">{{title}}</h2>
+    <p class="vr-yearly-summary__balance">{{user.name}}'s Current Balance: {{budget.currency}}{{budget.currentBalance}}</p>
 
-    <div class="vr-yearly-summary-line-chart" data-line-chart-summary="test"></div>
-    <h3>Summary</h3>
-    <table class="vr-yearly-summary-table">
-        <thead>
-            <tr>
-                <th class="vr-yearly-summary-table__col-head"></th>
-                {{#each budget.monthlySavings}}
-                    <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
-                {{/each}}
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th class="vr-yearly-summary-table__row-head">Income</th>
-                {{#each budget.monthlyIncome}}
-                    <td class="vr-yearly-summary-table__cell">{{value}}</td>
-                {{/each}}
-            </tr>
-            <tr>
-                <th class="vr-yearly-summary-table__row-head">Expenses</th>
-                {{#each budget.monthlyExpense}}
-                    <td class="vr-yearly-summary-table__cell">{{value}}</td>
-                {{/each}}
-            </tr>
-            <tr>
-                <th class="vr-yearly-summary-table__row-head">Net Savings</th>
-                {{#each budget.monthlySavings}}
-                    <td class="vr-yearly-summary-table__cell">{{value}}</td>
-                {{/each}}
-            </tr>
-            <tr>
-                <th class="vr-yearly-summary-table__row-head">Ending Balance</th>
-                {{#each budget.monthlyStartBalance}}
-                    <td class="vr-yearly-summary-table__cell">{{value}}</td>
-                {{/each}}
-            </tr>
-        </tbody>
-    </table>
+    
+    <section class="vr-yearly-summary__section vr-yearly-summary-section">
+        <h3 class="vr-yearly-summary-section__headline">Summary</h3>
+        <div class="vr-yearly-summary-section__line-chart vr-yearly-summary-line-chart" data-line-chart-summary="test"></div>
+        <div class="vr-yearly-summary-section__list">
+        <table class="vr-yearly-summary-table">
+            <thead>
+                <tr>
+                    <th class="vr-yearly-summary-table__col-head"></th>
+                    {{#each budget.monthlySavings}}
+                        <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="vr-yearly-summary-table__row-head">Income</th>
+                    {{#each budget.monthlyIncome}}
+                        <td class="vr-yearly-summary-table__cell">{{value}}</td>
+                    {{/each}}
+                </tr>
+                <tr>
+                    <th class="vr-yearly-summary-table__row-head">Expenses</th>
+                    {{#each budget.monthlyExpense}}
+                        <td class="vr-yearly-summary-table__cell">{{value}}</td>
+                    {{/each}}
+                </tr>
+                <tr>
+                    <th class="vr-yearly-summary-table__row-head">Net Savings</th>
+                    {{#each budget.monthlySavings}}
+                        <td class="vr-yearly-summary-table__cell">{{value}}</td>
+                    {{/each}}
+                </tr>
+                <tr>
+                    <th class="vr-yearly-summary-table__row-head">Ending Balance</th>
+                    {{#each budget.monthlyStartBalance}}
+                        <td class="vr-yearly-summary-table__cell">{{value}}</td>
+                    {{/each}}
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </section>
 
-    <h3>Income</h3>
-    <table class="vr-yearly-summary-table">
-        <thead>
-            <tr>
-                <th class="vr-yearly-summary-table__col-head"></th>
-                {{#each budget.monthlySavings}}
-                    <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
+    <section class="vr-yearly-summary__section vr-yearly-summary-section">
+        <h3 class="vr-yearly-summary-section__headline">Income</h3>
+        <div class="vr-yearly-summary-section__list">
+        <table class="vr-yearly-summary-table">
+            <thead>
+                <tr>
+                    <th class="vr-yearly-summary-table__col-head"></th>
+                    {{#each budget.monthlySavings}}
+                        <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each categories}}
+                    {{#compare label "===" "income"}}
+                        <tr>
+                            <th class="vr-yearly-summary-table__row-head">{{name}}</th>
+                            {{#each actualAmount}}
+                                <td class="vr-yearly-summary-table__cell">{{value}}</td>
+                            {{/each}}
+                        </tr>
+                    {{/compare}}
                 {{/each}}
-            </tr>
-        </thead>
-        <tbody>
-            {{#each categories}}
-                {{#compare label "===" "income"}}
-                    <tr>
-                        <th class="vr-yearly-summary-table__row-head">{{name}}</th>
-                        {{#each actualAmount}}
-                            <td class="vr-yearly-summary-table__cell">{{value}}</td>
-                        {{/each}}
-                    </tr>
-                {{/compare}}
-            {{/each}}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        </div>
+    </section>
 
-    <h3>Expense</h3>
-    <table class="vr-yearly-summary-table">
-        <thead>
-            <tr>
-                <th class="vr-yearly-summary-table__col-head"></th>
-                {{#each budget.monthlySavings}}
-                    <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
+    <section class="vr-yearly-summary__section vr-yearly-summary-section">
+        <h3 class="vr-yearly-summary-section__headline">Expense</h3>
+        <div class="vr-yearly-summary-section__list">
+        <table class="vr-yearly-summary-table">
+            <thead>
+                <tr>
+                    <th class="vr-yearly-summary-table__col-head"></th>
+                    {{#each budget.monthlySavings}}
+                        <th class="vr-yearly-summary-table__col-head">{{date month 'MMM'}}</th>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each categories}}
+                    {{#compare label "===" "expense"}}
+                        <tr>
+                            <th class="vr-yearly-summary-table__row-head">{{name}}</th>
+                            {{#each actualAmount}}
+                                <td class="vr-yearly-summary-table__cell">{{value}}</td>
+                            {{/each}}
+                        </tr>
+                    {{/compare}}
                 {{/each}}
-            </tr>
-        </thead>
-        <tbody>
-            {{#each categories}}
-                {{#compare label "===" "expense"}}
-                    <tr>
-                        <th class="vr-yearly-summary-table__row-head">{{name}}</th>
-                        {{#each actualAmount}}
-                            <td class="vr-yearly-summary-table__cell">{{value}}</td>
-                        {{/each}}
-                    </tr>
-                {{/compare}}
-            {{/each}}
-        </tbody>
-    </table>
-    <div
-        class="vr-yearly-expense-summary-chart"
-        data-pie-chart-expenses="{{expenseSummary.yearlyValues}}"
-        data-pie-chart-category-name="{{expenseSummary.names}}">
-    </div>
+            </tbody>
+        </table>
+        </div>
+        <div
+            class="vr-yearly-summary-section__expense-summary-chart vr-yearly-expense-summary-chart"
+            data-pie-chart-expenses="{{expenseSummary.yearlyValues}}"
+            data-pie-chart-category-name="{{expenseSummary.names}}">
+        </div>
+    </section>
+    
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>

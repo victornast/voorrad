@@ -1,0 +1,21 @@
+.vr-yearly-summary {
+  overflow: hidden;
+
+  &__section {
+    margin-top: 2em;
+  }
+}
+
+.vr-yearly-summary-section {
+  &__headline {
+    margin-left: 2em;
+  }
+
+  &__line-chart {
+    margin-bottom: 1em;
+  }
+
+  &__list {
+    overflow: auto;
+  }
+}
