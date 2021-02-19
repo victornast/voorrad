@@ -20,3 +20,11 @@
     background-color: $color-secondary;
   }
 }
+
+.vr-signout-button {
+  margin-top: 0em;
+  &:hover {
+    background-color: #fffaf026;
+    border-radius: 0.5em;
+  }
+}

@@ -1,7 +1,7 @@
 'use strict';
 
 const { Router } = require('express');
-
+const createError = require('http-errors');
 const bcryptjs = require('bcryptjs');
 const User = require('./../models/user.model');
 const Budget = require('./../models/budget.model');
@@ -64,7 +64,7 @@ router.post('/sign-in', (req, res, next) => {
   User.findOne({ email })
     .then((document) => {
       if (!document) {
-        return Promise.reject(new Error("There's no user with that email."));
+        return next(createError(401, "There's no user with that email."));
       } else {
         user = document;
         return bcryptjs.compare(password, user.passwordHashAndSalt);
@@ -75,7 +75,7 @@ router.post('/sign-in', (req, res, next) => {
         req.session.userId = user._id;
         return Budget.find({ $and: [{ active: true }, { userId: user._id }] });
       } else {
-        return Promise.reject(new Error('Wrong password.'));
+        return next(createError(401, 'Wrong password.'));
       }
     })
     .then((budget) => {

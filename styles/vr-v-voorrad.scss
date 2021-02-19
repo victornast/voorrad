@@ -17,3 +17,11 @@
     text-align: center;
   }
 }
+
+nav a {
+  text-decoration: none;
+}
+nav a:hover {
+  background-color: #fffaf026;
+  border-radius: 0.5em;
+}
