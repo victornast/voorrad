@@ -1,12 +1,11 @@
 .vr-add-transaction {
-  display: flex;
-  justify-content: center;
+  @media (min-width: 37.5em) {
+    display: flex;
+    justify-content: center;
+  }
+
   &__action {
     display: block;
-
-    @media (min-width: 37.5em) {
-      display: inline-block;
-    }
 
     &:not(:first-child) {
       margin-top: 1.5rem;
