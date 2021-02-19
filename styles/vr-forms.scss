@@ -1,6 +1,20 @@
+/* 
+ * Style based on Ironmaker Boilerplate - Ironhack
+ * TODO: to be refactored to BEM
+ */
+
 form {
   display: flex;
   flex-direction: column;
+}
+
+label {
+  margin-bottom: 0.5em;
+  font-weight: 600;
+
+  &:not(:first-child) {
+    margin-top: 1em;
+  }
 }
 
 input:not([type='checkbox']),
@@ -8,15 +22,21 @@ input:not([type='radio']),
 input:not([type='range']),
 textarea,
 select,
-button,
-.btn {
+button {
   padding: 1em;
-  border: 1px solid $grey;
+  border: 1px solid currentColor;
   border-radius: 0;
-  margin-bottom: 1em;
   font: inherit;
   color: inherit;
   background-color: transparent;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+select {
+  background-color: $color-primary-dark;
 }
 
 textarea {
@@ -24,6 +44,6 @@ textarea {
   resize: vertical;
 }
 
-label {
-  margin-bottom: 0.5em;
+button {
+  margin-top: 1em;
 }
