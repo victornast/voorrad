@@ -1,22 +1,23 @@
-<section>
+<section class="vr-v-edit-transaction">
     <h2>Edit Transaction</h2>
 
-    <form method="POST">
+    <form class="vr-edit-transaction-form" method="POST">
         {{#with transaction}}
         <label for="transaction-date">Date:</label>
         <input type="date" id="transaction-date" name="date" value="{{../transaction.date}}">
 
         <label for="transaction-source">Sender:</label>    
         <input type="text" id="transaction-source" name="transactionSource" required value="{{transactionSource}}">
-        <div id="segment-group">
+
+        <fieldset class="vr-edit-transaction-form-segment-group" data-segment-group="">
            
             {{#each segments}}
-                <div data-segment='main'>
-                    <label for="segment-amount">Amount:</label>    
-                    <input type="number" id="segment-amount" name="amount" required value={{amount}}>
+                <div class="vr-edit-transaction-form-segment-group__entry vr-edit-transaction-form-segment" data-segment="">
+                    <label class="vr-edit-transaction-form-segment__label" for="segment-amount">Amount:</label>    
+                    <input class="vr-edit-transaction-form-segment__input" type="number" id="segment-amount" name="amount" required value={{amount}}>
                     
-                    <label for="segment-category">Category</label>    
-                    <select id="segment-category" name="categoryId" required>
+                    <label class="vr-edit-transaction-form-segment__label" for="segment-category">Category:</label>    
+                    <select  class="vr-edit-transaction-form-segment__input" id="segment-category" name="categoryId" required>
                         {{#each ../../categories}}
                             <option {{#compare name "===" ../categoryId.name}}selected{{/compare}} value="{{_id}}" >{{name}}</option>
                         {{/each}}
@@ -25,12 +26,13 @@
               
             {{/each}}
 
-        </div>
+
+            <button class="vr-edit-transaction-form-segment-group__action vr-button vr-button--secondary" type="button" data-segment-button="">Split transaction</button>
+        </fieldset>
         
-          <div>
-            <button class="vr-button vr-button--secondary" type="button" id="split-button">Split transaction</button>
-         </div>
-        <label for="transaction-notes">Notes</label>
+          
+         
+        <label for="transaction-notes">Notes:</label>
         <textarea id="transaction-notes" name="notes">{{notes}}</textarea>
         {{/with}}
         <button class="vr-button vr-button--secondary" type="sumbit">Update</button>

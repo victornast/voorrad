@@ -1,9 +1,11 @@
 const dataSegment = document.querySelector('[data-segment]');
-const segmentGroup = document.getElementById('segment-group');
-const splitTransaction = document.getElementById('split-button');
+const dataSegmentClasses = dataSegment.classList;
+const segmentGroup = document.querySelector('[data-segment-group]');
+const splitTransaction = document.querySelector('[data-segment-button]');
 
 splitTransaction.addEventListener('click', () => {
   let dynamicDiv = document.createElement('div');
   dynamicDiv.innerHTML = dataSegment.innerHTML;
-  segmentGroup.append(dynamicDiv);
+  dynamicDiv.classList.add(...dataSegmentClasses);
+  segmentGroup.insertBefore(dynamicDiv, splitTransaction);
 });

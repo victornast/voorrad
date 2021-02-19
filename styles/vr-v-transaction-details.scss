@@ -1,0 +1,38 @@
+.vr-transaction-details {
+  display: flex;
+  flex-direction: column;
+
+  // (1) Split the white space equally between component elements
+  &__list {
+    margin-top: auto; //(1)
+  }
+
+  &__notes {
+    margin-top: auto; //(1)
+  }
+
+  &__actions {
+    margin-top: auto; //(1)
+  }
+}
+
+.vr-transaction-details-actions {
+  align-self: center;
+
+  &__button {
+    width: 100%;
+
+    @media (min-width: 37.5em) {
+      width: auto;
+    }
+
+    &:not(:first-child) {
+      margin-top: 1em;
+
+      @media (min-width: 37.5em) {
+        margin-top: 0;
+        margin-left: 1em;
+      }
+    }
+  }
+}

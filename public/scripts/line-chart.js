@@ -109,6 +109,8 @@ data.forEach(function (d) {
   d.date = parseDate(d.date);
 });
 
+console.log(data);
+
 var cities = color.domain().map(function (name) {
   return {
     name: name,

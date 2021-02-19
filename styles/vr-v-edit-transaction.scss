@@ -1,0 +1,42 @@
+.vr-edit-transaction-form-segment-group {
+  display: flex;
+  flex-direction: column;
+
+  &__entry {
+    &:not(:first-child) {
+      margin-top: 1em;
+    }
+  }
+
+  &__action {
+    align-self: flex-end;
+  }
+}
+
+.vr-edit-transaction-form-segment {
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 37.5em) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__label {
+    @media (min-width: 37.5em) {
+      margin: 0;
+      margin-right: 1em;
+
+      &:not(:first-child) {
+        margin-top: 0;
+        margin-left: 2em;
+      }
+    }
+  }
+
+  &__input {
+    @media (min-width: 37.5em) {
+      flex: 1 1 0;
+    }
+  }
+}

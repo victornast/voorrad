@@ -1,36 +1,37 @@
-<h2>Transaction Details</h2>
+<section class="vr-transaction-details">
+    <h2>Transaction Details</h2>
 
+    <table class="vr-transaction-details__list">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Source</th>
+                <th>Amount</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#with transaction}}
+                {{#each segments}}
+                    <tr>
+                        {{#if @first}}
+                            <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
+                            <td>{{../transactionSource}}</td>
+                        {{else}}
+                            <td></td><td></td>
+                        {{/if}}
+                        <td>{{../../budget.currency}}{{amount}}</td>
+                        <td>{{categoryId.name}}</td>
+                    </tr>                            
+                {{/each}}  
+            {{/with}}      
+        </tbody>
+    </table>
 
-<table>
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Source</th>
-            <th>Amount</th>
-            <th>Category</th>
-        </tr>
-    </thead>
-    <tbody>
-         {{#with transaction}}
-            {{#each segments}}
-                <tr>
-                    {{#if @first}}
-                        <td>{{{ date ../date "DD/MM/YYYY" }}}</td>
-                        <td>{{../transactionSource}}</td>
-                    {{else}}
-                        <td></td><td></td>
-                    {{/if}}
-                    <td>{{../../budget.currency}}{{amount}}</td>
-                    <td>{{categoryId.name}}</td>
-                </tr>                            
-            {{/each}}  
-          {{/with}}      
-    </tbody>
-</table>
+    <p class="vr-transaction-details__notes">Notes: {{transaction.notes}}</p>
 
-<p>Notes: {{transaction.notes}}</p>
-
-<div>
-    <a class="vr-button vr-button--secondary" href="/transaction/{{transaction._id}}/edit">Edit</a>
-    <a class="vr-button vr-button--primary" href="/transaction/{{transaction._id}}/delete">Delete</a>
-</div>
+    <div class="vr-transaction-details__actions vr-transaction-details-actions">
+        <a class="vr-transaction-details-actions__button vr-button vr-button--secondary" href="/transaction/{{transaction._id}}/edit">Edit</a>
+        <a class="vr-transaction-details-actions__button vr-button vr-button--primary" href="/transaction/{{transaction._id}}/delete">Delete</a>
+    </div>
+</section>

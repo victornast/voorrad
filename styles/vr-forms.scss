@@ -8,6 +8,14 @@ form {
   flex-direction: column;
 }
 
+fieldset {
+  border: 0;
+
+  &:not(:first-child) {
+    margin-top: 1em;
+  }
+}
+
 label {
   margin-bottom: 0.5em;
   font-weight: 600;

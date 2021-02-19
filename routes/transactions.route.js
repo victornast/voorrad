@@ -138,7 +138,6 @@ router.get('/:id/edit', routeGuard, async (req, res, next) => {
     transaction.date = new Date(transaction.date).toISOString().substr(0, 10);
     const categories = await Category.find({ budgetId: req.user.budgetId });
 
-    console.log(transaction);
     res.render('transactions/edit', {
       title: 'Edit Transaction',
       transaction,
@@ -153,7 +152,7 @@ router.post('/:id/edit', routeGuard, async (req, res, next) => {
   const id = req.params.id;
   const data = req.body;
   const amountOfSegments = data.amount.length;
-  console.log(data);
+
   try {
     const transaction = await Transaction.findByIdAndUpdate(id, {
       date: data.date,
