@@ -1,12 +1,11 @@
-<nav>
-  {{#if user}}
-    <a href="/overview">{{user.name}}'s Profile</a>
-    <a href="/categories">Categories</a>
-    <a href="/budget/month">Month</a>
-    <a href="/budget/year">Year</a>
-    <form action="/authentication/sign-out" method="POST">
-      <button>Sign Out</button>
-    </form>
-  
-  {{/if}}
-</nav>
+{{#if user}}
+  <nav class="vr-header__nav">
+      <a href="/overview">Overview</a>
+      <a href="/categories">Categories</a>
+      <a href="/budget/month">Month</a>
+      <a href="/budget/year">Year</a>
+      <form action="/authentication/sign-out" method="POST">
+        <button>Sign Out</button>
+      </form> 
+  </nav>
+{{/if}}

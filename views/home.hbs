@@ -1,30 +1,20 @@
-{{#if user}}
-<div class="vr-intro-wrapper">
-       <h4>Get your financial life together!</h4>
-</div>
+<section class="vr-homepage">
+     {{#if user}}
+     <h2 class="vr-homepage__headline">Get your financial life together!</h2>
 
-     <div class="vr-overview-wrapper">
-          <p class="vr-v-overview__intro-text vr-intro">
-             You can go straight to the <a href="/categories">Categories</a> page to manage your categories, or you can start adding expenses/incomes.
-          </p>
+     <p class="vr-homepage__intro vr-v-overview__intro-text vr-intro">
+          You can go straight to the <a href="/categories">Categories</a> page to manage your categories, or you can start adding expenses/incomes.
+     </p>
+     <div class="vr-homepage__actions">
+          {{>addtransaction}}
+     </div>
+     {{else}}
+     <h2 class="vr-homepage__headline">Get your financial life together!</h2>
+     <p class="vr-homepage__intro vr-intro">Welcome to {{title}}, sign-in to proceed or sign-up to get started.</p>
 
+     <div class="vr-homepage__actions vr-signin-up">       
+          <a class="vr-signin-up__action vr-button" href="/authentication/sign-up">Sign Up</a>
+          <a class="vr-signin-up__action vr-button" href="/authentication/sign-in">Sign In</a>
      </div>
-     <div class="vr-v-overview__add-transaction">
-         {{>addtransaction}}
-     </div>
+     {{/if}}
 </section>
-{{else}}
-<div class="vr-intro-wrapper">
-       <h4>Get your financial life together!</h4>
-  <div class="vr-intro">
-       <p>Welcome to {{title}}, sign-in to proceed or sign-up to get started.</p>
-  </div>
-</div>
-
-<div class="vr-v-overview-sign">
-    <div class="vr-signin-up">       
-        <a class="vr-signin-up__action vr-button" href="/authentication/sign-up">Sign Up</a>
-        <a class="vr-signin-up__action vr-button" href="/authentication/sign-in">Sign In</a>
-    </div>    
-</div>
-{{/if}}
