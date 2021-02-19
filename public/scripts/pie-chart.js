@@ -45,7 +45,7 @@ svg.attr({ transform: `translate(${width / 2}, ${height / 2})` });
 let arc = d3.svg
   .arc()
   .innerRadius(radius * 0.6)
-  .outerRadius(radius * 0.45);
+  .outerRadius(radius * 0.25);
 
 // Draw Labels and Polylines
 let outerArc = d3.svg

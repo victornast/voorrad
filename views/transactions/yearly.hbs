@@ -2,7 +2,7 @@
     <h2>{{title}}</h2>
     <p>{{user.name}}'s Current Balance: {{budget.currency}}{{budget.currentBalance}}</p>
 
-    <div class="vr-yearly-summary-line-chart"></div>
+    <div class="vr-yearly-summary-line-chart" data-line-chart-summary="test"></div>
     <h3>Summary</h3>
     <table class="vr-yearly-summary-table">
         <thead>
@@ -97,4 +97,4 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="/scripts/pie-chart.js"></script>
-{{!-- <script src="/scripts/line-chart.js"></script> --}}
+<script src="/scripts/line-chart.js"></script>
