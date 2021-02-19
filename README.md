@@ -12,6 +12,6 @@ What you can do:
 
 
 
-# 2nd Ironhack Project
-# by Smaragda Kalogeropoulou & Victor Nastasa
+ 2nd Ironhack Project
+ by Smaragda Kalogeropoulou & Victor Nastasa
  
