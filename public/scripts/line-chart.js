@@ -56,6 +56,10 @@ const monthlyExpenses = [
   1100,
   1500
 ];
+const getLineChart = document.querySelector('[data-line-chart-summary]');
+const widthLineChartContainer = getLineChart.offsetWidth;
+const heightLineChartContainer = getLineChart.offsetHeight;
+console.log(widthLineChartContainer, heightLineChartContainer);
 
 var margin = {
     top: 20,
@@ -63,8 +67,8 @@ var margin = {
     bottom: 30,
     left: 50
   },
-  widthLineChart = 900 - margin.left - margin.right,
-  heightLineChart = 300 - margin.top - margin.bottom;
+  widthLineChart = widthLineChartContainer - margin.left - margin.right,
+  heightLineChart = heightLineChartContainer - margin.top - margin.bottom;
 
 var parseDate = d3.time.format('%Y%m%d').parse;
 
@@ -86,8 +90,6 @@ var line = d3.svg
   .y(function (d) {
     return y(d.temperature);
   });
-
-const getLineChart = document.querySelector('[data-line-chart-summary]');
 
 var svgLineChart = d3
   .select(getLineChart)
@@ -146,12 +148,14 @@ svgLineChart
   .append('g')
   .attr('class', 'x axis')
   .attr('transform', 'translate(0,' + heightLineChart + ')')
-  .call(xAxis);
+  .call(xAxis)
+  .style('fill', '#fffaf0');
 
 svgLineChart
   .append('g')
   .attr('class', 'y axis')
   .call(yAxis)
+  .style('fill', '#fffaf0')
   .append('text')
   .attr('transform', 'rotate(-90)')
   .attr('y', 6)
