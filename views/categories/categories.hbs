@@ -1,35 +1,58 @@
-<section>
-    <h2>Category List and Edit</h2>
+<section class="vr-categories">
+    <h2 class="vr-categories__title">Category List and Edit</h2>
 
-    <table>
+    <h3 class="vr-categories__section-title">Income Categories</h3>
+    <table class="vr-categories__list vr-categories-tables">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Type</th>
-                <th>Planned Amount</th>
+                <th class="vr-categories-tables__amount">Planned Amount</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>     
         {{#each categories}}
-            <tr>
-                <td>{{name}}</td>
-                <td>{{#compare label "===" "income"}}Income{{else}}Expense{{/compare}}</td>
-                <td>{{plannedAmount}}</td>
-                <td>
-                    <a href="/categories/edit/{{_id}}">Edit</a>
-                    <a href="/categories/delete/{{_id}}">Delete</a>
-                </td>
-            </tr>
+            {{#compare label "===" "income"}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td class="vr-categories-tables__amount">{{plannedAmount}}</td>
+                    <td class="vr-categories-tables__actions vr-categories-tables-actions">
+                        <a class="vr-categories-tables-actions__entry" href="/categories/edit/{{_id}}">Edit</a>
+                        <a class="vr-categories-tables-actions__entry" href="/categories/delete/{{_id}}">Delete</a>
+                    </td>
+                </tr>
+            {{/compare}}
         {{/each}}
         </tbody>
     </table>
 
-    <a class="vr-button" href="/categories/add">Add category</a>
+    <h3 class="vr-categories__section-title">Expense Categories</h3>
+    <table class="vr-categories__list vr-categories-tables">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th class="vr-categories-tables__amount">Planned Amount</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>     
+        {{#each categories}}
+            {{#compare label "===" "expense"}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td class="vr-categories-tables__amount">{{plannedAmount}}</td>
+                    <td class="vr-categories-tables__actions vr-categories-tables-actions">
+                        <a class="vr-categories-tables-actions__entry" href="/categories/edit/{{_id}}">Edit</a>
+                        <a class="vr-categories-tables-actions__entry" href="/categories/delete/{{_id}}">Delete</a>
+                    </td>
+                </tr>
+            {{/compare}}
+        {{/each}}
+        </tbody>
+    </table>
+
+    <a class="vr-categories__action vr-button vr-button--secondary" href="/categories/add">Add category</a>
 </section>
-
-
-
    
 
 

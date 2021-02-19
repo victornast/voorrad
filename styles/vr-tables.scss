@@ -15,3 +15,21 @@
     text-align: right;
   }
 }
+
+// Categories Table
+.vr-categories-tables {
+  &__amount {
+    text-align: right;
+  }
+
+  &__actions {
+    padding-left: 1em;
+    text-align: right;
+  }
+}
+
+.vr-categories-tables-actions {
+  &__entry:not(:first-child) {
+    margin-left: 1em;
+  }
+}

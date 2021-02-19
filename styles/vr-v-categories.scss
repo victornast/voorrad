@@ -1,0 +1,20 @@
+.vr-categories {
+  display: flex;
+  flex-direction: column;
+
+  &__section-title {
+    margin-top: 1em;
+  }
+
+  &__list {
+    margin-bottom: 2em;
+  }
+
+  &__action {
+    margin-top: auto;
+
+    @media (min-width: 37.5em) {
+      align-self: center;
+    }
+  }
+}
