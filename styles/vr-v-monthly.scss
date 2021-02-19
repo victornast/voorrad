@@ -1,35 +1,59 @@
-.main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  text-align: left;
-}
-.wrapper {
-  display: flex;
-  flex-direction: column;
+/* 
+ * TODO: to be refactored to BEM
+ */
+
+.vr-monthly {
+  &__accounting {
+    margin-top: 2em;
+  }
 }
 
 .month-blnc {
-  flex-direction: column;
+  margin-top: 2em;
   text-align: left;
-}
-.main div {
-  padding: 1em 0 1em 0;
+  columns: 3;
+  width: 100%;
+
+  h3 {
+    column-span: all;
+  }
 }
 
 .table-month {
-  border-collapse: separate;
-  border-spacing: 0 3px;
+  a {
+    text-decoration: none;
+  }
+
+  &__numbers {
+    text-align: right;
+  }
 }
-.table-month td {
-  width: 7em;
-  text-align: left;
-  padding: 1px 2px 1px 2px;
-}
+
 .vr-amounts {
-  color: #1f7adf;
+  color: $color-tertiary;
 }
-p .vr-amounts {
-  float: right;
-  padding-left: 0.5em;
+
+.vr-monthly-accounting {
+  @media (min-width: 64em) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 3em;
+  }
+
+  &__headline {
+    grid-column: 1 / -1;
+  }
+
+  &__transactions {
+    width: 100%;
+  }
+
+  &__budget {
+    width: 100%;
+    margin-top: 2em;
+
+    @media (min-width: 64em) {
+      margin-top: 0;
+    }
+  }
 }

@@ -1,6 +1,5 @@
 
-<section class="main">
- <div class="prv-nxt-month">
+<section class="vr-monthly">
      <h2>{{title}}</h2>
      <p>
          {{#if prevDate.possible}}
@@ -22,16 +21,16 @@
          <p>Actual Expenses: <span class="vr-amounts"> {{currency}}{{monthExpense}}</span></p>
          {{/with}}
      </div>
- </div>
- <div class="wrapper">
-     <div class="month-inc">
-         <h3>Monthly Income</h3>
-         <table class="table-month">
+
+     <section class="vr-monthly__accounting vr-monthly-accounting">   
+         <h3 class="vr-monthly-accounting__headline">Monthly Income</h3>
+         <table class="vr-monthly-accounting__transactions table-month">
+             <caption>Transactions</caption>
              <thead>
                  <tr>
                      <th>Date</th>
                      <th>Sender</th>
-                     <th>Amount</th>
+                     <th class="table-month__numbers">Amount</th>
                      <th>Category</th>
                  </tr>
              </thead>
@@ -45,21 +44,49 @@
                                 {{else}}
                                     <td></td><td></td>
                                 {{/if}}
-                                <td><a href="/transaction/{{../_id}}">{{../../budget.currency}}{{amount}}</a></td>
+                                <td class="table-month__numbers"><a href="/transaction/{{../_id}}">{{../../budget.currency}}{{amount}}</a></td>
                                 <td><a href="/transaction/{{../_id}}">{{categoryId.name}}</a></td>
                             </tr>                            
                          {{/each}}
                  {{/each}}
              </tbody>
          </table>
-     </div>
-     <div>
-         <h3>Monthly Expenses</h3>
-         <table class="table-month">
+         <table class="vr-monthly-accounting__budget table-month">
+             <caption>Budget</caption>
+             <thead>
+                 <tr>
+                     <th>Category</th>
+                     <th class="table-month__numbers">Planned</th>
+                     <th class="table-month__numbers">Actual </th>
+                     <th class="table-month__numbers">Difference</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 {{#each categories}}
+                     {{#compare label "===" "income"}}
+                         {{#compare (add plannedAmount actualAmount) "!==" 0}}
+                             <tr>
+                                 <td>{{name}}</td>
+                                 <td class="table-month__numbers"> {{../budget.currency}} {{plannedAmount}}</td>
+                                 <td class="table-month__numbers">  {{../budget.currency}} {{actualAmount}}</td>
+                                 <td class="table-month__numbers"> {{../budget.currency}} {{subtract actualAmount plannedAmount}}</td>
+                             </tr>
+                         {{/compare}}
+                     {{/compare}}
+             {{/each}}
+             </tbody>
+         </table>
+     </section>
+
+     <section class="vr-monthly__accounting vr-monthly-accounting">
+        <h3 class="vr-monthly-accounting__headline">Monthly Expenses</h3>
+        <table class="vr-monthly-accounting__transactions table-month">
+            <caption>Transactions</caption>
+             <thead>
              <tr>
                  <th>Date</th>
                  <th>Recipient</th>
-                 <th>Amount</th>
+                 <th class="table-month__numbers">Amount</th>
                  <th>Category</th>
                  </tr>
              </thead>
@@ -73,50 +100,21 @@
                                  {{else}}
                                      <td></td><td></td>
                                  {{/if}}
-                                 <td><a href="/transaction/{{../_id}}">{{../../budget.currency}}{{amount}}</a></td>
+                                 <td class="table-month__numbers"><a href="/transaction/{{../_id}}">{{../../budget.currency}}{{amount}}</a></td>
                                  <td><a href="/transaction/{{../_id}}">{{categoryId.name}}</a></td>
                              </tr>
                          {{/each}}
                  {{/each}}
              </tbody>
         </table>
-     </div>
-     <div>
-         <h3>Monthly Income Budget</h3>
-         <table class="table-month">
+        <table class="vr-monthly-accounting__budget table-month">
+            <caption>Budget</caption>
              <thead>
                  <tr>
                      <th>Category</th>
-                     <th>Planned</th>
-                     <th>Actual </th>
-                     <th>Difference</th>
-                 </tr>
-             </thead>
-             <tbody>
-                 {{#each categories}}
-                     {{#compare label "===" "income"}}
-                         {{#compare (add plannedAmount actualAmount) "!==" 0}}
-                             <tr>
-                                 <td>{{name}}</td>
-                                 <td> {{../budget.currency}} {{plannedAmount}}</td>
-                                 <td>  {{../budget.currency}} {{actualAmount}}</td>
-                                 <td> {{../budget.currency}} {{subtract actualAmount plannedAmount}}</td>
-                             </tr>
-                         {{/compare}}
-                     {{/compare}}
-             {{/each}}
-             </tbody>
-         </table>
-     </div>
-     <div>
-         <h3>Monthly Expense Budget</h3>
-         <table class="table-month">
-             <thead>
-                 <tr>
-                     <th>Category</th>
-                     <th>Planned</th>
-                     <th>Actual </th>
-                     <th>Difference</th>
+                     <th class="table-month__numbers">Planned</th>
+                     <th class="table-month__numbers">Actual </th>
+                     <th class="table-month__numbers">Difference</th>
                  </tr>
              </thead>
              <tbody>
@@ -125,19 +123,17 @@
                          {{#compare (add plannedAmount actualAmount) "!==" 0}}
                              <tr>
                                  <td>{{name}}</td>
-                                 <td>  {{../budget.currency}} {{plannedAmount}}</td>
-                                 <td>  {{../budget.currency}} {{actualAmount}}</td>
-                                 <td>  {{../budget.currency}} {{subtract plannedAmount actualAmount}}</td>
+                                 <td class="table-month__numbers">  {{../budget.currency}} {{plannedAmount}}</td>
+                                 <td class="table-month__numbers">  {{../budget.currency}} {{actualAmount}}</td>
+                                 <td class="table-month__numbers">  {{../budget.currency}} {{subtract plannedAmount actualAmount}}</td>
                              </tr>
                          {{/compare}}
                      {{/compare}}
              {{/each}}
              </tbody>
          </table>
-     </div>
- </div>
-</section>
-
+     </section>
      <div class="vr-v-overview__add-transaction">
         {{>addtransaction}}
      </div>
+</section>
