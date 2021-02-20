@@ -1,8 +1,8 @@
 <header class="voorrad__header vr-header">
     <a class="vr-header__logo" href="/{{#if user}}overview{{/if}}">
-        <h1>
+        <h1 class="vr-logo {{#unless user}}vr-logo--standalone{{/unless}}">
             <span class="sr-only">VOORRAD</span>
-            <img src="/images/logo-voorrad_white.svg" alt="Voorrad Logo">
+            <img class="vr-logo__media" src="/images/logo-voorrad_white.svg" alt="Voorrad Logo">
         </h1>
     </a>
     {{>navbar}}

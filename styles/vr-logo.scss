@@ -1,0 +1,11 @@
+.vr-logo {
+  &__media {
+    height: 1.9rem;
+  }
+
+  &--standalone {
+    .vr-logo__media {
+      height: auto;
+    }
+  }
+}
