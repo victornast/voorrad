@@ -151,8 +151,12 @@ router.get('/:id/edit', routeGuard, async (req, res, next) => {
 router.post('/:id/edit', routeGuard, async (req, res, next) => {
   const id = req.params.id;
   const data = req.body;
-  const amountOfSegments = data.amount.length;
 
+  if (!(data.amount instanceof Array)) {
+    data.amount = [data.amount];
+    data.categoryId = [data.categoryId];
+  }
+  const amountOfSegments = data.amount.length;
   try {
     const transaction = await Transaction.findByIdAndUpdate(id, {
       date: data.date,
@@ -170,6 +174,7 @@ router.post('/:id/edit', routeGuard, async (req, res, next) => {
         categoryId: data.categoryId[index]
       });
     }
+
     if (additionalSegments > 0) {
       for (let i = currentSegments; amountOfSegments > i; i++) {
         const newSegment = await Segment.create({
