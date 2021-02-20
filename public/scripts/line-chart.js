@@ -1,4 +1,4 @@
-var myData =
+var myDataTemplate =
   'date	Income	Expense	Balance\n\
 20111001	1500	1100	400\n\
 20111002	1500	1300	600\n\
@@ -13,59 +13,22 @@ var myData =
 20111011	1500	1100	1000\n\
 20111012	1500	1500	1000\n\
 ';
+const colorsBalance = ['#2f74ad', '#fc6397', '#ffa600'];
 
-const monthlyBalance = [
-  400,
-  600,
-  200,
-  300,
-  200,
-  -100,
-  -100,
-  100,
-  300,
-  600,
-  1000,
-  1000
-];
-const monthlyIncome = [
-  1500,
-  1500,
-  1500,
-  1500,
-  1500,
-  1500,
-  1500,
-  1500,
-  1500,
-  1500,
-  1500,
-  1500
-];
-const monthlyExpenses = [
-  1100,
-  1300,
-  1900,
-  1400,
-  1600,
-  1800,
-  1500,
-  1300,
-  1300,
-  1200,
-  1100,
-  1500
-];
 const getLineChart = document.querySelector('[data-line-chart-summary]');
+
 const widthLineChartContainer = getLineChart.offsetWidth;
 const heightLineChartContainer = getLineChart.offsetHeight;
-console.log(widthLineChartContainer, heightLineChartContainer);
+
+const monthlySummaries = [getLineChart.dataset.lineChartIncome.split(',')];
+monthlySummaries.push(getLineChart.dataset.lineChartExpenses.split(','));
+monthlySummaries.push(getLineChart.dataset.lineChartSummary.split(','));
 
 var margin = {
     top: 20,
-    right: 80,
+    right: 30,
     bottom: 30,
-    left: 50
+    left: 280
   },
   widthLineChart = widthLineChartContainer - margin.left - margin.right,
   heightLineChart = heightLineChartContainer - margin.top - margin.bottom;
@@ -99,7 +62,7 @@ var svgLineChart = d3
   .append('g')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-var data = d3.tsv.parse(myData);
+var data = d3.tsv.parse(myDataTemplate);
 
 color.domain(
   d3.keys(data[0]).filter(function (key) {
@@ -107,13 +70,11 @@ color.domain(
   })
 );
 
-data.forEach(function (d) {
-  d.date = parseDate(d.date);
+data.forEach(function (d, i) {
+  d.date = i + 1;
 });
 
-console.log(data);
-
-var cities = color.domain().map(function (name) {
+const cities = color.domain().map(function (name) {
   return {
     name: name,
     values: data.map(function (d) {
@@ -124,6 +85,12 @@ var cities = color.domain().map(function (name) {
     })
   };
 });
+
+for (let i = 0; i < 3; i++) {
+  for (let j = 0; j < 12; j++) {
+    cities[i].values[j].temperature = Number(monthlySummaries[i][j]);
+  }
+}
 
 x.domain(
   d3.extent(data, function (d) {
@@ -176,6 +143,6 @@ city
   .attr('d', function (d) {
     return line(d.values);
   })
-  .style('stroke', function (d) {
-    return color(d.name);
+  .style('stroke', function (d, i) {
+    return colorsBalance[i];
   });

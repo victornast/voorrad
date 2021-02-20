@@ -1,5 +1,6 @@
 // Yearly Summary Tables
 .vr-yearly-summary-table {
+  margin-bottom: 3em;
   &__row-head {
     padding-right: 1em;
     text-align: left;
@@ -8,6 +9,7 @@
     left: 0;
     background-color: $color-primary-dark;
     z-index: 1;
+    width: 100%;
   }
 
   &__col-head {

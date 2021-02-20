@@ -5,7 +5,12 @@
     
     <section class="vr-yearly-summary__section vr-yearly-summary-section">
         <h3 class="vr-yearly-summary-section__headline">Summary</h3>
-        <div class="vr-yearly-summary-section__line-chart vr-yearly-summary-line-chart" data-line-chart-summary=""></div>
+        <div
+            class="vr-yearly-summary-section__line-chart vr-yearly-summary-line-chart"
+            data-line-chart-summary="{{#each budget.monthlyStartBalance}}{{value}}{{#unless @last}},{{/unless}}{{/each}}"
+            data-line-chart-expenses="{{#each budget.monthlyExpense}}{{value}}{{#unless @last}},{{/unless}}{{/each}}"
+            data-line-chart-income="{{#each budget.monthlyIncome}}{{value}}{{#unless @last}},{{/unless}}{{/each}}">
+        </div>
         <div class="vr-yearly-summary-section__list">
         <table class="vr-yearly-summary-table">
             <thead>

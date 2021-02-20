@@ -280,7 +280,6 @@ router.get('/year', routeGuard, async (req, res, next) => {
         }
       }
     }
-
     res.render('transactions/yearly', {
       title: 'Yearly View',
       budget,
